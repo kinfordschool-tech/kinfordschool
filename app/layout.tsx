@@ -9,15 +9,17 @@ export const metadata: Metadata = {
   title: 'Kinford School of Guidance | Best Residential School in Kozhikode & Thamarassery',
   description: 'Kinford School of Guidance is a premium residential school in Kozhikode and Thamarassery, Kerala. Offering top-tier Plus One Commerce coaching with integrated CA/CMA guidance, individual mentoring, and strong Islamic moral foundations.',
   keywords: [
-    'best residential school in kozhikode',
-    'best residential school in thamrassery',
-    'kinford school of guidance',
-    'best boarding school in kerala',
-    'residential school kozhikode',
-    'boarding school thamrassery',
-    'kinford school',
-    'best residential school kerala',
-    'plus one commerce boarding school'
+    'Best Residential School in Kozhikode',
+    'Best Residential School in Thamarassery',
+    'Best School in Kozhikode',
+    'Best School to Study +1',
+    'Best school to study Plus One',
+    'Best Residential School in Kerala',
+    'Best Boarding School in Kozhikode',
+    'Best Boarding School in Thamarassery',
+    'Kinford School of Guidance',
+    'Kinford School Thamarassery',
+    'Plus One Commerce Kozhikode'
   ],
   icons: {
     icon: '/kinford-logo.png',
