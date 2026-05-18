@@ -63,7 +63,7 @@ export default function AdminLogin() {
         pointerEvents: 'none'
       }} />
 
-      <div style={{
+      <div className="mobile-full-width" style={{
         width: '100%',
         maxWidth: '440px',
         background: 'rgba(30,30,30,0.75)',

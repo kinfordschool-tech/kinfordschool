@@ -12,7 +12,7 @@ const subjects = [
 export default function Values() {
   return (
     <main>
-      <section style={{ minHeight: '60vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px', position: 'relative', overflow: 'hidden' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '60vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px', position: 'relative', overflow: 'hidden' }}>
         <svg style={{ position: 'absolute', right: -100, bottom: -100, width: 500, opacity: 0.06 }} viewBox="0 0 500 400" fill="none">
           <path d="M50 400 C50 150 450 150 450 400" fill="#A0163B" />
         </svg>
@@ -30,7 +30,7 @@ export default function Values() {
             Kinford helps students develop a strong moral Islamic foundation — not as an addition to education, but as its foundation. Every aspect of school life is shaped by values of honesty, discipline, compassion, and purpose.
           </p>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
+        <div className="subjects-grid-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
           {subjects.map((s, i) => (
             <Reveal key={i} delay={i * 80}>
               <div style={{ background: '#fff', padding: '36px 28px' }}>

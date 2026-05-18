@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <footer style={{ background: '#1E1E1E', color: 'white', padding: '60px 6vw 32px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 60, marginBottom: 48 }}>
+      <div className="footer-grid-col" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 60, marginBottom: 48 }}>
         <div>
           <img src="/kinford-logo.png" alt="Kinford School of Guidance" style={{ width: 120, display: 'block' }} />
           <p style={{ marginTop: 20, fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, maxWidth: 280 }}>
@@ -29,12 +29,14 @@ export default function Footer() {
             Thamarassery<br />
             Kozhikode, Kerala
           </p>
-          <Link href="/admissions" style={{ display: 'inline-block', marginTop: 20, background: '#A0163B', color: 'white', padding: '10px 20px', borderRadius: 50, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
-            Apply Now →
-          </Link>
+          <div className="mobile-stack-buttons">
+            <Link href="/admissions" style={{ display: 'inline-block', marginTop: 20, background: '#A0163B', color: 'white', padding: '10px 20px', borderRadius: 50, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
+              Apply Now →
+            </Link>
+          </div>
         </div>
       </div>
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="about-two-col" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>© 2026 Kinford School of Guidance. All rights reserved.</p>
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>Thamarassery, Kozhikode, Kerala</p>
       </div>

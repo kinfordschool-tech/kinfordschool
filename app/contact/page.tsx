@@ -3,7 +3,7 @@ import Reveal from '@/components/Reveal'
 export default function Contact() {
   return (
     <main>
-      <section style={{ minHeight: '45vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '45vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px' }}>
         <Reveal>
           <p style={{ fontSize: 11, color: '#F5B800', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 16 }}>Contact</p>
           <h1 style={{ fontSize: 'clamp(40px,6vw,80px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>
@@ -13,7 +13,7 @@ export default function Contact() {
       </section>
 
       <section style={{ background: '#fff', padding: '100px 6vw' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
+        <div className="contact-grid-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
           <Reveal>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
               {[
@@ -46,9 +46,11 @@ export default function Contact() {
                   <label style={{ fontSize: 12, color: '#888', display: 'block', marginBottom: 6 }}>Message</label>
                   <textarea rows={4} placeholder="How can we help?" style={{ width: '100%', padding: '12px 14px', borderRadius: 8, border: '1px solid #ddd', fontSize: 14, fontFamily: 'inherit', outline: 'none', resize: 'vertical', background: '#fff' }} />
                 </div>
-                <button type="submit" style={{ background: '#1E1E1E', color: '#fff', padding: '14px', borderRadius: 10, fontSize: 14, fontWeight: 600, border: 'none', cursor: 'pointer' }}>
-                  Send Message →
-                </button>
+                <div className="mobile-stack-buttons">
+                  <button type="submit" style={{ background: '#1E1E1E', color: '#fff', padding: '14px', borderRadius: 10, fontSize: 14, fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                    Send Message →
+                  </button>
+                </div>
               </form>
             </div>
           </Reveal>

@@ -12,7 +12,7 @@ export default function About() {
   return (
     <main>
       {/* HEADER */}
-      <section style={{ minHeight: '60vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px', position: 'relative', overflow: 'hidden' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '60vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px', position: 'relative', overflow: 'hidden' }}>
         <svg style={{ position: 'absolute', right: -80, top: -80, width: 500, opacity: 0.05 }} viewBox="0 0 500 400" fill="none">
           <path d="M100 400 C100 150 400 150 400 400" fill="#A0163B" />
         </svg>
@@ -26,7 +26,7 @@ export default function About() {
 
       {/* FOUNDING STORY */}
       <section style={{ background: '#fff', padding: '100px 6vw' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+        <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
           <Reveal>
             <p style={{ fontSize: 'clamp(18px,2vw,24px)', fontWeight: 300, lineHeight: 1.8, color: '#333' }}>
               Kinford was founded with a vision to create a modern learning environment where academics, discipline, creativity, and leadership grow together.
@@ -60,7 +60,7 @@ export default function About() {
             What we stand for.
           </h2>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
+        <div className="values-grid-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
           {values.map((v, i) => (
             <Reveal key={i} delay={i * 100}>
               <div style={{ padding: '32px 28px', background: '#fff', borderRadius: 16, border: '1px solid #eee' }}>
@@ -80,9 +80,11 @@ export default function About() {
             We admit a small number of students each year.
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.65)', marginBottom: 32 }}>This is how to begin.</p>
-          <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 36px', borderRadius: 50, fontSize: 15, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
-            View Admissions →
-          </Link>
+          <div className="mobile-stack-buttons">
+            <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 36px', borderRadius: 50, fontSize: 15, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+              View Admissions →
+            </Link>
+          </div>
         </Reveal>
       </section>
     </main>

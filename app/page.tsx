@@ -69,29 +69,29 @@ export default function Home() {
   return (
     <main>
       {/* HERO */}
-      <section style={{ minHeight: '100vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '100vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
         {/* Arch watermark */}
         <svg style={{ position: 'absolute', bottom: -80, left: '50%', transform: 'translateX(-50%)', width: 700, opacity: 0.04 }} viewBox="0 0 700 350" fill="none">
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
         <div style={{ textAlign: 'center', zIndex: 2, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
-          className="animate-hero">
+          className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
 
           <img
             src="/kinford-logo.png"
             alt="Kinford School of Guidance"
-            style={{ width: 'clamp(200px, 22vw, 280px)', display: 'block', margin: '0 auto' }}
+            style={{ width: 'clamp(140px, 18vw, 220px)', display: 'block', margin: '0 auto' }}
           />
 
           <div style={{ marginTop: 40, minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
-            <p style={{ fontSize: 'clamp(18px,2.5vw,26px)', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.01em' }}>
+            <p style={{ fontSize: 'clamp(16px,2.5vw,26px)', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.01em' }}>
               {rotatingLines[lineIndex]}
             </p>
           </div>
 
-          <div style={{ marginTop: 40, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="mobile-stack-buttons" style={{ marginTop: 40, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none', letterSpacing: '0.02em' }}>
               Begin Your Journey →
             </Link>
@@ -115,7 +115,7 @@ export default function Home() {
             Six reasons parents choose us.
           </h2>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
+        <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
           {whyKinford.map((w, i) => (
             <Reveal key={i} delay={i * 80}>
               <div style={{ background: '#fff', padding: '40px 32px', transition: 'background 0.2s' }}
@@ -132,7 +132,7 @@ export default function Home() {
 
       {/* BEYOND CLASSROOM */}
       <section style={{ background: '#1E1E1E', padding: '100px 6vw' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+        <div className="beyond-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
           <Reveal>
             <p className="section-label" style={{ color: '#F5B800' }}>Beyond Classroom</p>
             <h2 style={{ fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 20 }}>
@@ -166,7 +166,7 @@ export default function Home() {
             We teach students the skills the modern world demands — digital, creative, and entrepreneurial.
           </p>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+        <div className="futures-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
           {futureSkills.map((f, i) => (
             <Reveal key={i} delay={i * 80}>
               <div style={{ background: 'rgba(255,255,255,0.08)', borderRadius: 16, padding: '28px 24px', border: '1px solid rgba(255,255,255,0.12)' }}>
@@ -180,7 +180,7 @@ export default function Home() {
 
       {/* ISLAMIC VALUES TEASER */}
       <section style={{ background: '#fff', padding: '100px 6vw' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <div className="islamic-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
           <Reveal>
             <p className="section-label dark-label">Guided with Values</p>
             <h2 style={{ fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 20 }}>
@@ -213,13 +213,15 @@ export default function Home() {
         </svg>
         <Reveal>
           <p style={{ fontSize: 12, color: '#F5B800', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 20 }}>Admissions Open</p>
-          <h2 style={{ fontSize: 'clamp(32px,5vw,64px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 20, maxWidth: 600, margin: '0 auto 20px' }}>
+          <h2 style={{ fontSize: 'clamp(28px,5vw,56px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 20, maxWidth: 600, margin: '0 auto 20px' }}>
             Your child's future starts with one conversation.
           </h2>
-          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', marginBottom: 40 }}>Limited seats — Plus One Commerce. Admissions closing soon.</p>
-          <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '16px 40px', borderRadius: 50, fontSize: 16, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
-            Enquire Now →
-          </Link>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', marginBottom: 40 }}>Limited seats — Plus One Commerce. Admissions closing soon.</p>
+          <div className="mobile-stack-buttons">
+            <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '16px 40px', borderRadius: 50, fontSize: 16, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+              Enquire Now →
+            </Link>
+          </div>
         </Reveal>
       </section>
     </main>

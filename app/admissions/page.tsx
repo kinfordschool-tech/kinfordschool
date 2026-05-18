@@ -54,7 +54,7 @@ export default function Admissions() {
 
   return (
     <main>
-      <section style={{ minHeight: '55vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px', position: 'relative', overflow: 'hidden' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '55vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px', position: 'relative', overflow: 'hidden' }}>
         <svg style={{ position: 'absolute', right: -60, bottom: -80, width: 500, opacity: 0.05 }} viewBox="0 0 500 400" fill="none">
           <path d="M50 400 C50 150 450 150 450 400" fill="#A0163B" />
         </svg>
@@ -74,7 +74,7 @@ export default function Admissions() {
         <Reveal>
           <h2 style={{ fontSize: 'clamp(24px,3vw,40px)', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 32 }}>What you get at Kinford.</h2>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12 }}>
+        <div className="chips-grid-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12 }}>
           {features.map((f, i) => (
             <Reveal key={i} delay={i * 60}>
               <div style={{ padding: '16px 18px', background: '#fff', borderRadius: 10, border: '1px solid #eee', fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -166,15 +166,17 @@ export default function Admissions() {
                   {errorMessage}
                 </div>
               )}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                style={{ background: isSubmitting ? '#ccc' : '#A0163B', color: '#fff', padding: '16px 32px', borderRadius: 50, fontSize: 15, fontWeight: 700, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', marginTop: 8, transition: 'background 0.2s' }}
-                onMouseEnter={e => !isSubmitting && (e.currentTarget.style.background = '#7a1030')}
-                onMouseLeave={e => !isSubmitting && (e.currentTarget.style.background = '#A0163B')}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Enquiry →'}
-              </button>
+              <div className="mobile-stack-buttons">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={{ background: isSubmitting ? '#ccc' : '#A0163B', color: '#fff', padding: '16px 32px', borderRadius: 50, fontSize: 15, fontWeight: 700, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', marginTop: 8, transition: 'background 0.2s' }}
+                  onMouseEnter={e => !isSubmitting && (e.currentTarget.style.background = '#7a1030')}
+                  onMouseLeave={e => !isSubmitting && (e.currentTarget.style.background = '#A0163B')}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Enquiry →'}
+                </button>
+              </div>
               <p style={{ fontSize: 12, color: '#aaa', textAlign: 'center' }}>We respect your privacy. Your details will not be shared.</p>
             </form>
           )}

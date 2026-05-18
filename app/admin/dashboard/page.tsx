@@ -273,7 +273,7 @@ export default function AdminDashboard() {
             overflow: 'hidden',
             boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
           }}>
-            <div style={{ overflowX: 'auto' }}>
+            <div className="mobile-table-scroll" style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
                 <thead>
                   <tr style={{
@@ -345,7 +345,7 @@ export default function AdminDashboard() {
 
       {/* View Details Modal Overlay */}
       {selectedEnquiry && (
-        <div style={{
+        <div className="mobile-modal-overlay" style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -359,7 +359,7 @@ export default function AdminDashboard() {
           zIndex: 1000,
           padding: '24px'
         }}>
-          <div style={{
+          <div className="mobile-full-screen-modal" style={{
             background: '#1E1E1E',
             border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: '24px',
@@ -422,7 +422,7 @@ export default function AdminDashboard() {
 
             {/* Modal Content */}
             <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '20px', overflowY: 'auto', maxHeight: '70vh' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Student Name</span>
                   <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{selectedEnquiry.name}</span>
@@ -433,7 +433,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Phone Number</span>
                   <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff', fontFamily: 'monospace' }}>{selectedEnquiry.phone}</span>
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Gender</span>
                   <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{selectedEnquiry.gender || '—'}</span>

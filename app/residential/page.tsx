@@ -13,7 +13,7 @@ const facilities = [
 export default function Residential() {
   return (
     <main>
-      <section style={{ minHeight: '55vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '55vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 6vw 60px' }}>
         <Reveal>
           <p style={{ fontSize: 11, color: '#F5B800', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 16 }}>Residential Life</p>
           <h1 style={{ fontSize: 'clamp(40px,6vw,80px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1, maxWidth: 700 }}>
@@ -28,7 +28,7 @@ export default function Residential() {
             Kinford provides a secure, comfortable, and growth-focused residential environment where students learn independence, discipline, and collaboration — together.
           </p>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
+        <div className="facilities-grid-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
           {facilities.map((f, i) => (
             <Reveal key={i} delay={i * 80}>
               <div style={{ padding: '36px 28px', background: '#f8f6f2', borderRadius: 16 }}>
@@ -47,9 +47,11 @@ export default function Residential() {
             Come and see the school in motion.
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(30,30,30,0.6)', marginBottom: 32 }}>Visit us at Thamarassery, Kozhikode.</p>
-          <Link href="/contact" style={{ background: '#1E1E1E', color: '#fff', padding: '14px 36px', borderRadius: 50, fontSize: 15, fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
-            Get in Touch →
-          </Link>
+          <div className="mobile-stack-buttons">
+            <Link href="/contact" style={{ background: '#1E1E1E', color: '#fff', padding: '14px 36px', borderRadius: 50, fontSize: 15, fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
+              Get in Touch →
+            </Link>
+          </div>
         </Reveal>
       </section>
     </main>
