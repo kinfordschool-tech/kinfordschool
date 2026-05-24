@@ -16,12 +16,25 @@ interface Enquiry {
   created_at: string
 }
 
+interface ContactMessage {
+  id: number
+  name: string
+  contact: string
+  message: string
+  created_at: string
+}
+
 export default function AdminDashboard() {
   const router = useRouter()
   const [authorized, setAuthorized] = useState<boolean | null>(null)
+  const [activeTab, setActiveTab] = useState<'enquiries' | 'messages'>('enquiries')
+  
   const [enquiries, setEnquiries] = useState<Enquiry[]>([])
+  const [messages, setMessages] = useState<ContactMessage[]>([])
+  
   const [loading, setLoading] = useState(true)
   const [selectedEnquiry, setSelectedEnquiry] = useState<Enquiry | null>(null)
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null)
 
   // Route protection checking sessionStorage on the client side
   useEffect(() => {
@@ -54,11 +67,36 @@ export default function AdminDashboard() {
     }
   }
 
+  // Fetch contact messages from Supabase sorted by created_at descending
+  const fetchMessages = async () => {
+    setLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('contact_messages')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Error fetching contact messages:', error.message)
+      } else {
+        setMessages(data || [])
+      }
+    } catch (err) {
+      console.error('Failed to fetch contact messages:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     if (authorized) {
-      fetchEnquiries()
+      if (activeTab === 'enquiries') {
+        fetchEnquiries()
+      } else {
+        fetchMessages()
+      }
     }
-  }, [authorized])
+  }, [authorized, activeTab])
 
   const handleLogout = () => {
     sessionStorage.removeItem('kinford_admin_logged_in')
@@ -188,15 +226,17 @@ export default function AdminDashboard() {
               color: '#ffffff',
               marginBottom: '6px'
             }}>
-              Admissions Enquiries
+              {activeTab === 'enquiries' ? 'Admissions Enquiries' : 'Contact Messages'}
             </h2>
             <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
-              Manage and view all incoming student admissions submissions.
+              {activeTab === 'enquiries' 
+                ? 'Manage and view all incoming student admissions submissions.' 
+                : 'View messages sent by visitors through the contact form.'}
             </p>
           </div>
 
           <button
-            onClick={fetchEnquiries}
+            onClick={activeTab === 'enquiries' ? fetchEnquiries : fetchMessages}
             disabled={loading}
             style={{
               background: 'rgba(255,255,255,0.04)',
@@ -227,6 +267,44 @@ export default function AdminDashboard() {
           </button>
         </div>
 
+        {/* Tab Selector */}
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '32px', paddingBottom: '1px' }}>
+          <button
+            onClick={() => setActiveTab('enquiries')}
+            style={{
+              padding: '12px 24px',
+              background: 'transparent',
+              border: 'none',
+              borderBottom: activeTab === 'enquiries' ? '2px solid #F5B800' : '2px solid transparent',
+              color: activeTab === 'enquiries' ? '#F5B800' : 'rgba(255,255,255,0.5)',
+              fontSize: '15px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              marginBottom: '-1px'
+            }}
+          >
+            Admissions Enquiries {enquiries.length > 0 && `(${enquiries.length})`}
+          </button>
+          <button
+            onClick={() => setActiveTab('messages')}
+            style={{
+              padding: '12px 24px',
+              background: 'transparent',
+              border: 'none',
+              borderBottom: activeTab === 'messages' ? '2px solid #F5B800' : '2px solid transparent',
+              color: activeTab === 'messages' ? '#F5B800' : 'rgba(255,255,255,0.5)',
+              fontSize: '15px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              marginBottom: '-1px'
+            }}
+          >
+            Contact Messages {messages.length > 0 && `(${messages.length})`}
+          </button>
+        </div>
+
         {/* Table Container */}
         {loading ? (
           <div style={{
@@ -250,100 +328,181 @@ export default function AdminDashboard() {
                 borderRadius: '50%'
               }}
             />
-            <span style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)' }}>Fetching enquiries from Supabase...</span>
+            <span style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)' }}>Fetching records from database...</span>
           </div>
-        ) : enquiries.length === 0 ? (
-          <div style={{
-            background: 'rgba(30,30,30,0.4)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: '20px',
-            padding: '80px 24px',
-            textAlign: 'center',
-            color: 'rgba(255,255,255,0.4)'
-          }}>
-            <p style={{ fontSize: '48px', marginBottom: '16px' }}>📂</p>
-            <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#ffffff', marginBottom: '6px' }}>No enquiries yet</h3>
-            <p style={{ fontSize: '14px' }}>Submissions from the admissions form will appear here.</p>
-          </div>
-        ) : (
-          <div style={{
-            background: 'rgba(30,30,30,0.4)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
-          }}>
-            <div className="mobile-table-scroll" style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
-                <thead>
-                  <tr style={{
-                    background: '#1E1E1E',
-                    borderBottom: '1px solid rgba(255,255,255,0.08)'
-                  }}>
-                    <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Name</th>
-                    <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Parent Name</th>
-                    <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Phone</th>
-                    <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Grade</th>
-                    <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Date Submitted</th>
-                    <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {enquiries.map((enq, index) => (
-                    <tr
-                      key={enq.id}
-                      style={{
-                        borderBottom: index === enquiries.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.04)',
-                        background: index % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)',
-                        transition: 'background-color 0.15s ease'
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = index % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)'}
-                    >
-                      <td style={{ padding: '18px 24px', fontSize: '15px', fontWeight: 600, color: '#ffffff' }}>{enq.name}</td>
-                      <td style={{ padding: '18px 24px', fontSize: '15px', color: 'rgba(255,255,255,0.7)' }}>{enq.parent_name || '—'}</td>
-                      <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}>{enq.phone}</td>
-                      <td style={{ padding: '18px 24px', fontSize: '14px' }}>
-                        <span style={{
-                          background: 'rgba(245,184,0,0.12)',
-                          color: '#F5B800',
-                          padding: '4px 10px',
-                          borderRadius: '50px',
-                          fontSize: '12px',
-                          fontWeight: 600
-                        }}>{enq.grade}</span>
-                      </td>
-                      <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{formatDate(enq.created_at)}</td>
-                      <td style={{ padding: '18px 24px', textAlign: 'right' }}>
-                        <button
-                          onClick={() => setSelectedEnquiry(enq)}
-                          style={{
-                            background: '#A0163B',
-                            color: '#ffffff',
-                            border: 'none',
-                            borderRadius: '30px',
-                            padding: '6px 16px',
-                            fontSize: '13px',
-                            fontWeight: 600,
-                            cursor: 'pointer',
-                            transition: 'background-color 0.2s'
-                          }}
-                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
-                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
-                        >
-                          View
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        ) : activeTab === 'enquiries' ? (
+          enquiries.length === 0 ? (
+            <div style={{
+              background: 'rgba(30,30,30,0.4)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '20px',
+              padding: '80px 24px',
+              textAlign: 'center',
+              color: 'rgba(255,255,255,0.4)'
+            }}>
+              <p style={{ fontSize: '48px', marginBottom: '16px' }}>📂</p>
+              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#ffffff', marginBottom: '6px' }}>No enquiries yet</h3>
+              <p style={{ fontSize: '14px' }}>Submissions from the admissions form will appear here.</p>
             </div>
-          </div>
+          ) : (
+            <div style={{
+              background: 'rgba(30,30,30,0.4)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
+            }}>
+              <div className="mobile-table-scroll" style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+                  <thead>
+                    <tr style={{
+                      background: '#1E1E1E',
+                      borderBottom: '1px solid rgba(255,255,255,0.08)'
+                    }}>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Name</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Parent Name</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Phone</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Grade</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Date Submitted</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {enquiries.map((enq, index) => (
+                      <tr
+                        key={enq.id}
+                        style={{
+                          borderBottom: index === enquiries.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.04)',
+                          background: index % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)',
+                          transition: 'background-color 0.15s ease'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = index % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)'}
+                      >
+                        <td style={{ padding: '18px 24px', fontSize: '15px', fontWeight: 600, color: '#ffffff' }}>{enq.name}</td>
+                        <td style={{ padding: '18px 24px', fontSize: '15px', color: 'rgba(255,255,255,0.7)' }}>{enq.parent_name || '—'}</td>
+                        <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}>{enq.phone}</td>
+                        <td style={{ padding: '18px 24px', fontSize: '14px' }}>
+                          <span style={{
+                            background: 'rgba(245,184,0,0.12)',
+                            color: '#F5B800',
+                            padding: '4px 10px',
+                            borderRadius: '50px',
+                            fontSize: '12px',
+                            fontWeight: 600
+                          }}>{enq.grade}</span>
+                        </td>
+                        <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{formatDate(enq.created_at)}</td>
+                        <td style={{ padding: '18px 24px', textAlign: 'right' }}>
+                          <button
+                            onClick={() => setSelectedEnquiry(enq)}
+                            style={{
+                              background: '#A0163B',
+                              color: '#ffffff',
+                              border: 'none',
+                              borderRadius: '30px',
+                              padding: '6px 16px',
+                              fontSize: '13px',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              transition: 'background-color 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
+                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )
+        ) : (
+          messages.length === 0 ? (
+            <div style={{
+              background: 'rgba(30,30,30,0.4)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '20px',
+              padding: '80px 24px',
+              textAlign: 'center',
+              color: 'rgba(255,255,255,0.4)'
+            }}>
+              <p style={{ fontSize: '48px', marginBottom: '16px' }}>💬</p>
+              <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#ffffff', marginBottom: '6px' }}>No messages yet</h3>
+              <p style={{ fontSize: '14px' }}>Visitor submissions from the contact page form will show up here.</p>
+            </div>
+          ) : (
+            <div style={{
+              background: 'rgba(30,30,30,0.4)',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
+            }}>
+              <div className="mobile-table-scroll" style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+                  <thead>
+                    <tr style={{
+                      background: '#1E1E1E',
+                      borderBottom: '1px solid rgba(255,255,255,0.08)'
+                    }}>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Name</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact Info</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Message Excerpt</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Date Sent</th>
+                      <th style={{ padding: '18px 24px', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {messages.map((msg, index) => (
+                      <tr
+                        key={msg.id}
+                        style={{
+                          borderBottom: index === messages.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.04)',
+                          background: index % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)',
+                          transition: 'background-color 0.15s ease'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = index % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)'}
+                      >
+                        <td style={{ padding: '18px 24px', fontSize: '15px', fontWeight: 600, color: '#ffffff' }}>{msg.name}</td>
+                        <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.7)', fontFamily: 'monospace' }}>{msg.contact}</td>
+                        <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)', maxWidth: '280px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{msg.message}</td>
+                        <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{formatDate(msg.created_at)}</td>
+                        <td style={{ padding: '18px 24px', textAlign: 'right' }}>
+                          <button
+                            onClick={() => setSelectedMessage(msg)}
+                            style={{
+                              background: '#A0163B',
+                              color: '#ffffff',
+                              border: 'none',
+                              borderRadius: '30px',
+                              padding: '6px 16px',
+                              fontSize: '13px',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              transition: 'background-color 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
+                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )
         )}
       </div>
 
-      {/* View Details Modal Overlay */}
+      {/* View Admissions Enquiry Details Modal */}
       {selectedEnquiry && (
         <div className="mobile-modal-overlay" style={{
           position: 'fixed',
@@ -487,6 +646,158 @@ export default function AdminDashboard() {
             }}>
               <button
                 onClick={() => setSelectedEnquiry(null)}
+                style={{
+                  background: 'transparent',
+                  color: '#ffffff',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: '30px',
+                  padding: '10px 24px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Contact Message Details Modal */}
+      {selectedMessage && (
+        <div className="mobile-modal-overlay" style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.8)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '24px'
+        }}>
+          <div className="mobile-full-screen-modal" style={{
+            background: '#1E1E1E',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '24px',
+            width: '100%',
+            maxWidth: '600px',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            {/* Modal Header */}
+            <div style={{
+              background: '#141414',
+              padding: '24px 32px',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <div>
+                <span style={{
+                  background: 'rgba(160,22,59,0.12)',
+                  color: '#ff6b8b',
+                  padding: '4px 10px',
+                  borderRadius: '50px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>Contact Message</span>
+                <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', marginTop: '6px' }}>Message Details</h3>
+              </div>
+              <button
+                onClick={() => setSelectedMessage(null)}
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '36px',
+                  height: '36px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: 'rgba(255,255,255,0.5)',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#ffffff'
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.5)'
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '20px', overflowY: 'auto', maxHeight: '70vh' }}>
+              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Sender Name</span>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{selectedMessage.name}</span>
+                </div>
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Contact Info</span>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff', fontFamily: 'monospace' }}>{selectedMessage.contact}</span>
+                </div>
+              </div>
+
+              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Submission Date</span>
+                  <span style={{ fontSize: '15px', color: 'rgba(255,255,255,0.8)' }}>{formatDate(selectedMessage.created_at)}</span>
+                </div>
+              </div>
+
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '20px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '8px' }}>Message Body</span>
+                <div style={{
+                  background: 'rgba(0,0,0,0.2)',
+                  border: '1px solid rgba(255,255,255,0.04)',
+                  borderRadius: '12px',
+                  padding: '16px 20px',
+                  fontSize: '14px',
+                  color: 'rgba(255,255,255,0.8)',
+                  lineHeight: '1.6',
+                  whiteSpace: 'pre-wrap',
+                  minHeight: '120px'
+                }}>
+                  {selectedMessage.message}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div style={{
+              background: '#141414',
+              padding: '20px 32px',
+              borderTop: '1px solid rgba(255,255,255,0.06)',
+              display: 'flex',
+              justifyContent: 'flex-end'
+            }}>
+              <button
+                onClick={() => setSelectedMessage(null)}
                 style={{
                   background: 'transparent',
                   color: '#ffffff',
