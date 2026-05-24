@@ -184,12 +184,9 @@ export default function Home() {
             <h2 style={{ fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 20 }}>
               Faith and education,<br />together.
             </h2>
-            <p style={{ fontSize: 16, color: '#666', lineHeight: 1.8, marginBottom: 32 }}>
+            <p style={{ fontSize: 16, color: '#666', lineHeight: 1.8, marginBottom: 0 }}>
               Kinford integrates a strong Islamic moral foundation into everyday school life, building not just students, but people of character.
             </p>
-            <Link href="/values" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#A0163B', color: '#fff', padding: '12px 28px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
-              See our values →
-            </Link>
           </Reveal>
           <Reveal delay={200}>
             <div style={{ overflow: 'hidden', borderRadius: 20, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}>
