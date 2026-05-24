@@ -17,7 +17,7 @@ export default function AdminLogin() {
 
     // Slight timeout for a smooth loading state interaction
     setTimeout(() => {
-      if (email === 'admin@gmail.com' && password === 'kinford@123') {
+      if (email === 'admin@gmail.com' && password === 'kin9kin@') {
         sessionStorage.setItem('kinford_admin_logged_in', 'true')
         router.push('/admin/dashboard')
       } else {
