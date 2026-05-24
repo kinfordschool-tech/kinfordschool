@@ -96,7 +96,7 @@ export async function POST(request: Request) {
     const { error: schoolEmailError } = await resend.emails.send({
       from: 'Kinford School <noreply@kinfordschool.com>',
       to: 'kinfordschool@gmail.com',
-      subject: `New Enquiry — ${name}`,
+      subject: `New Enquiry: ${name}`,
       html: schoolEmailHtml,
     })
 

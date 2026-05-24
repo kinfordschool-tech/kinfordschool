@@ -60,12 +60,12 @@ export default function Admissions() {
         </svg>
         <Reveal>
           <div style={{ display: 'inline-block', background: '#A0163B', color: '#fff', padding: '6px 16px', borderRadius: 50, fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 20 }}>
-            Admissions Open — Plus One Commerce
+            Admissions Open for Plus One Commerce
           </div>
           <h1 style={{ fontSize: 'clamp(36px,5vw,72px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1, maxWidth: 700 }}>
             Secure your child's<br />place at Kinford.
           </h1>
-          <p style={{ fontSize: 14, color: '#F5B800', marginTop: 16, fontWeight: 500 }}>Limited seats — admissions closing soon.</p>
+          <p style={{ fontSize: 14, color: '#F5B800', marginTop: 16, fontWeight: 500 }}>Limited seats. Admissions closing soon.</p>
         </Reveal>
       </section>
 

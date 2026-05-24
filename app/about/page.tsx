@@ -3,8 +3,8 @@ import Reveal from '@/components/Reveal'
 
 const values = [
   { title: 'Connection', body: 'Built by three classmates who believed in the power of human bonds and shared purpose.' },
-  { title: 'Belonging', body: 'Every student is known by name, by dream, by struggle — no one is just a roll number here.' },
-  { title: 'Growth', body: 'Holistic development — academic, personal, spiritual. We nurture the whole person.' },
+  { title: 'Belonging', body: 'Every student is known by name, by dream, by struggle. No one is just a roll number here.' },
+  { title: 'Growth', body: 'Holistic development: academic, personal, and spiritual. We nurture the whole person.' },
   { title: 'Purpose', body: 'We help students discover not just what to study, but who to become.' },
 ]
 
@@ -32,10 +32,10 @@ export default function About() {
               Kinford was founded with a vision to create a modern learning environment where academics, discipline, creativity, and leadership grow together.
             </p>
             <p style={{ fontSize: 16, color: '#888', lineHeight: 1.9, marginTop: 24 }}>
-              Three classmates from different backgrounds came together on the Malabar coast with one shared dream — to build a school that represents the meeting point of journeys, ideas, and futures.
+              Three classmates from different backgrounds came together on the Malabar coast with one shared dream: to build a school that represents the meeting point of journeys, ideas, and futures.
             </p>
             <p style={{ fontSize: 16, color: '#888', lineHeight: 1.9, marginTop: 16 }}>
-              With a strong focus on holistic development, Kinford is designed to guide students beyond academics — into leadership, lifelong relationships, and a modern learning environment.
+              With a strong focus on holistic development, Kinford is designed to guide students beyond academics, into leadership, lifelong relationships, and a modern learning environment.
             </p>
           </Reveal>
           <Reveal delay={200}>

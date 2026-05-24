@@ -12,10 +12,10 @@ const rotatingLines = [
 
 const whyKinford = [
   { num: '01', title: 'Premium Residential Life', body: 'Safe, structured, and inspiring. Students live, learn, and grow together in a community built around discipline and care.' },
-  { num: '02', title: 'Beyond the Classroom', body: 'From AI programs to entrepreneurship clubs — we prepare students for the real world, not just exams.' },
+  { num: '02', title: 'Beyond the Classroom', body: 'From AI programs to entrepreneurship clubs, we prepare students for the real world, not just exams.' },
   { num: '03', title: 'Islamic Values at the Core', body: "Every aspect of Kinford's environment is shaped by strong moral and Islamic principles. Faith and education, together." },
   { num: '04', title: 'Individual Mentorship', body: 'Every student gets personal guidance. Teachers who know their names, their dreams, and their struggles.' },
-  { num: '05', title: 'Future-Ready Skills', body: 'Digital marketing, content creation, web development, AI — real skills for the world your child will enter.' },
+  { num: '05', title: 'Future-Ready Skills', body: 'Digital marketing, content creation, web development, AI. Real skills for the world your child will enter.' },
   { num: '06', title: 'Structured Academic Excellence', body: 'Focused Plus One Commerce program with CA/CMA guidance, language lab, and career-oriented support for every student.' },
 ]
 
@@ -101,10 +101,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.25)', fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', textAlign: 'center' }}>
-          Scroll to explore
-          <div style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.15)', margin: '10px auto 0' }} />
-        </div>
+
       </section>
 
       {/* WHY KINFORD */}
@@ -112,7 +109,7 @@ export default function Home() {
         <Reveal>
           <p className="section-label" style={{ color: '#A0163B' }}>Why Kinford</p>
           <h2 style={{ fontSize: 'clamp(36px,5vw,60px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 60, maxWidth: 600 }}>
-            Six reasons parents choose us.
+            Reasons why parents choose us.
           </h2>
         </Reveal>
         <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
@@ -163,7 +160,7 @@ export default function Home() {
             Beyond academics.
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.65)', lineHeight: 1.8, maxWidth: 500, marginBottom: 48 }}>
-            We teach students the skills the modern world demands — digital, creative, and entrepreneurial.
+            We teach students the skills the modern world demands: digital, creative, and entrepreneurial.
           </p>
         </Reveal>
         <div className="futures-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
@@ -187,20 +184,19 @@ export default function Home() {
               Faith and education,<br />together.
             </h2>
             <p style={{ fontSize: 16, color: '#666', lineHeight: 1.8, marginBottom: 32 }}>
-              Kinford integrates a strong Islamic moral foundation into everyday school life — building not just students, but people of character.
+              Kinford integrates a strong Islamic moral foundation into everyday school life, building not just students, but people of character.
             </p>
             <Link href="/values" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#A0163B', color: '#fff', padding: '12px 28px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
               See our values →
             </Link>
           </Reveal>
           <Reveal delay={200}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {["Qur'an Studies", "Fiqh — Islamic Jurisprudence", "Aqeedah — Islamic Theology", "Islamic History", "Islam in the Modern World", "Islamic Finance"].map((v, i) => (
-                <div key={i} style={{ padding: '14px 20px', background: '#f8f6f2', borderRadius: 10, fontSize: 14, fontWeight: 500, color: '#333', display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#A0163B', flexShrink: 0 }} />
-                  {v}
-                </div>
-              ))}
+            <div style={{ overflow: 'hidden', borderRadius: 20, boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}>
+              <img
+                src="/islamic-studies-class.png"
+                alt="Islamic Studies Class at Kinford"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
             </div>
           </Reveal>
         </div>
@@ -216,10 +212,10 @@ export default function Home() {
           <h2 style={{ fontSize: 'clamp(28px,5vw,56px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 20, maxWidth: 600, margin: '0 auto 20px' }}>
             Your child's future starts with one conversation.
           </h2>
-          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', marginBottom: 40 }}>Limited seats — Plus One Commerce. Admissions closing soon.</p>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', marginBottom: 40 }}>Limited seats for Plus One Commerce. Admissions closing soon.</p>
           <div className="mobile-stack-buttons">
             <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '16px 40px', borderRadius: 50, fontSize: 16, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
-              Enquire Now →
+              Register Now →
             </Link>
           </div>
         </Reveal>

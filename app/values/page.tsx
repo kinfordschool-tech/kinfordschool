@@ -1,10 +1,10 @@
 import Reveal from '@/components/Reveal'
 
 const subjects = [
-  { title: "Qur'an Studies", body: "Deep engagement with the Qur'an — reading, understanding, and living its guidance." },
-  { title: 'Fiqh', body: 'Islamic Jurisprudence — understanding the rules and reasoning behind Islamic practice.' },
-  { title: 'Aqeedah', body: 'Islamic Theology — building a firm, reasoned foundation of faith and belief.' },
-  { title: 'Islamic History', body: 'The story of Islam from its origins to the modern world — context and civilization.' },
+  { title: "Qur'an Studies", body: "Deep engagement with the Qur'an: reading, understanding, and living its guidance." },
+  { title: 'Fiqh', body: 'Islamic Jurisprudence: understanding the rules and reasoning behind Islamic practice.' },
+  { title: 'Aqeedah', body: 'Islamic Theology: building a firm, reasoned foundation of faith and belief.' },
+  { title: 'Islamic History', body: 'The story of Islam from its origins to the modern world: context and civilization.' },
   { title: 'Islam in the Modern World', body: 'How Islamic principles navigate contemporary challenges in society, technology, and life.' },
   { title: 'Islamic Finance', body: 'The ethics and structure of Islamic economic and financial principles.' },
 ]
@@ -27,7 +27,7 @@ export default function Values() {
       <section style={{ background: '#fff', padding: '100px 6vw' }}>
         <Reveal>
           <p style={{ fontSize: 18, fontWeight: 300, lineHeight: 1.8, color: '#555', maxWidth: 640, marginBottom: 60 }}>
-            Kinford helps students develop a strong moral Islamic foundation — not as an addition to education, but as its foundation. Every aspect of school life is shaped by values of honesty, discipline, compassion, and purpose.
+            Kinford helps students develop a strong moral Islamic foundation: not as an addition to education, but as its core foundation. Every aspect of school life is shaped by values of honesty, discipline, compassion, and purpose.
           </p>
         </Reveal>
         <div className="subjects-grid-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
@@ -48,7 +48,7 @@ export default function Values() {
           <h2 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', maxWidth: 600, margin: '0 auto 16px' }}>
             "We build not just students, but people of character."
           </h2>
-          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>— Kinford School of Guidance</p>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Kinford School of Guidance</p>
         </Reveal>
       </section>
     </main>

@@ -3,10 +3,10 @@ import Reveal from '@/components/Reveal'
 
 const facilities = [
   { icon: '🏠', title: 'Safe & Secure Accommodation', body: 'Comfortable, supervised dormitories where students feel at home and safe.' },
-  { icon: '🍽️', title: 'Nutritious Food', body: 'Balanced, healthy meals prepared daily — fuel for learning and growing.' },
+  { icon: '🍽️', title: 'Nutritious Food', body: 'Balanced, healthy meals prepared daily: fuel for learning and growing.' },
   { icon: '🎨', title: 'Creative Lounge', body: 'A dedicated space for creation, collaboration, and creative thinking outside the classroom.' },
   { icon: '📚', title: 'Study-Focused Atmosphere', body: 'Structured study hours, quiet zones, and academic support built into daily life.' },
-  { icon: '🤝', title: 'Individual Mentorship', body: 'Every student is personally mentored — academically, personally, and spiritually.' },
+  { icon: '🤝', title: 'Individual Mentorship', body: 'Every student is personally mentored across academic, personal, and spiritual dimensions.' },
   { icon: '🕌', title: 'Prayer & Reflection Spaces', body: 'Dedicated spaces for salah, reflection, and spiritual grounding throughout the day.' },
 ]
 
@@ -25,7 +25,7 @@ export default function Residential() {
       <section style={{ background: '#fff', padding: '100px 6vw' }}>
         <Reveal>
           <p style={{ fontSize: 18, fontWeight: 300, color: '#555', lineHeight: 1.8, maxWidth: 600, marginBottom: 60 }}>
-            Kinford provides a secure, comfortable, and growth-focused residential environment where students learn independence, discipline, and collaboration — together.
+            Kinford provides a secure, comfortable, and growth-focused residential environment where students learn independence, discipline, and collaboration together.
           </p>
         </Reveal>
         <div className="facilities-grid-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
