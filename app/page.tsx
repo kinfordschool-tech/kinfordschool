@@ -70,41 +70,94 @@ export default function Home() {
   return (
     <main>
       {/* HERO */}
-      <section className="mobile-hero-padding" style={{ minHeight: '100vh', background: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '100vh', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
         {/* Arch watermark */}
         <svg style={{ position: 'absolute', bottom: -80, left: '50%', transform: 'translateX(-50%)', width: 700, opacity: 0.05 }} viewBox="0 0 700 350" fill="none">
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
-        <div style={{ textAlign: 'center', zIndex: 2, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
-          className="animate-hero mobile-full-width">
-          <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
+        <div className="hero-grid-desktop" style={{ width: '100%', maxWidth: '1200px', display: 'grid', gridTemplateColumns: '1fr', gap: '40px', alignItems: 'center', zIndex: 2 }}>
+          
+          {/* Left Column / Main content */}
+          <div style={{ textAlign: 'left', animation: 'fadeUp 1s ease forwards', opacity: 0 }} className="animate-hero mobile-text-center">
+            <style>{`
+              @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(30px) }
+                to { opacity: 1; transform: translateY(0) }
+              }
+              .animate-hero {
+                animation: fadeUp 1s ease forwards;
+              }
+              @media (min-width: 1024px) {
+                .hero-grid-desktop {
+                  grid-template-columns: 1.2fr 1fr !important;
+                  gap: 80px !important;
+                }
+                .hero-image-col {
+                  display: block !important;
+                }
+                .mobile-text-center {
+                  text-align: left !important;
+                }
+                .mobile-logo-align {
+                  justify-content: flex-start !important;
+                }
+                .mobile-buttons-align {
+                  justify-content: flex-start !important;
+                }
+              }
+              @media (max-width: 1023px) {
+                .hero-image-col {
+                  display: none !important;
+                }
+                .mobile-text-center {
+                  text-align: center !important;
+                }
+                .mobile-logo-align {
+                  justify-content: center !important;
+                }
+                .mobile-buttons-align {
+                  justify-content: center !important;
+                }
+              }
+            `}</style>
 
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-            <img
-              src="/kinford-logo-dark.jpg"
-              alt="Kinford School of Guidance"
-              style={{ width: 'clamp(200px, 25vw, 320px)', height: 'auto', display: 'block' }}
-            />
+            <div className="mobile-logo-align" style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+              <img
+                src="/kinford-logo-dark.jpg"
+                alt="Kinford School of Guidance"
+                style={{ width: 'clamp(200px, 25vw, 320px)', height: 'auto', display: 'block' }}
+              />
+            </div>
+
+            <div style={{ marginTop: 40, minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
+              <p style={{ fontSize: 'clamp(16px,2.5vw,26px)', fontWeight: 300, color: '#555', letterSpacing: '0.01em' }}>
+                {rotatingLines[lineIndex]}
+              </p>
+            </div>
+
+            <div className="mobile-stack-buttons mobile-buttons-align" style={{ marginTop: 40, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none', letterSpacing: '0.02em' }}>
+                Begin Your Journey →
+              </Link>
+              <Link href="/about" style={{ border: '1.5px solid #1E1E1E', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>
+                Our Story
+              </Link>
+            </div>
           </div>
 
-          <div style={{ marginTop: 40, minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
-            <p style={{ fontSize: 'clamp(16px,2.5vw,26px)', fontWeight: 300, color: '#555', letterSpacing: '0.01em' }}>
-              {rotatingLines[lineIndex]}
-            </p>
+          {/* Right Column / Hero Image (Desktop only) */}
+          <div className="hero-image-col" style={{ display: 'none', animation: 'fadeUp 1.2s ease forwards', opacity: 0 }}>
+            <div style={{ overflow: 'hidden', borderRadius: '24px', boxShadow: '0 20px 48px rgba(0,0,0,0.1)', border: '1px solid rgba(0,0,0,0.05)' }}>
+              <img
+                src="/islamic-studies-class.png"
+                alt="Islamic Studies Class at Kinford"
+                style={{ width: '100%', height: 'auto', display: 'block', transform: 'scale(1.02)' }}
+              />
+            </div>
           </div>
 
-          <div className="mobile-stack-buttons" style={{ marginTop: 40, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none', letterSpacing: '0.02em' }}>
-              Begin Your Journey →
-            </Link>
-            <Link href="/about" style={{ border: '1.5px solid #1E1E1E', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>
-              Our Story
-            </Link>
-          </div>
         </div>
-
-
       </section>
 
       {/* WHY KINFORD */}

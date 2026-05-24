@@ -16,9 +16,9 @@ export default function Footer() {
         </div>
         <div>
           <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', marginBottom: 16 }}>Pages</p>
-          {['/', '/about', '/academics', '/values', '/residential', '/admissions', '/contact'].map((href, i) => (
+          {['/', '/about', '/academics', '/gallery', '/admissions', '/contact'].map((href, i) => (
             <Link key={href} href={href} style={{ display: 'block', fontSize: 14, color: 'rgba(255,255,255,0.55)', textDecoration: 'none', marginBottom: 10, transition: 'color 0.2s' }}>
-              {['Home', 'About', 'Academics', 'Values', 'Residential', 'Admissions', 'Contact'][i]}
+              {['Home', 'About', 'Academics', 'Gallery', 'Admissions', 'Contact'][i]}
             </Link>
           ))}
         </div>
