@@ -44,7 +44,7 @@ export default function FloatingNav() {
         }}
       >
         <Link href="/" style={{ display: 'flex', alignItems: 'center', padding: '2px 10px 2px 4px', borderRight: '1px solid rgba(255,255,255,0.08)', marginRight: 4 }}>
-          <img src="/kinford-logo.png" alt="Kinford" style={{ height: 30, width: 'auto' }} />
+          <img src="/kinford-icon.jpg" alt="Kinford" style={{ height: 30, width: 30, borderRadius: '6px', objectFit: 'cover' }} />
         </Link>
         {links.map((link) => {
           const active = pathname === link.href
@@ -89,7 +89,7 @@ export default function FloatingNav() {
         }}
       >
         <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/kinford-logo.png" alt="Kinford" style={{ height: 26, width: 'auto' }} />
+          <img src="/kinford-icon.jpg" alt="Kinford" style={{ height: 30, width: 30, borderRadius: '6px', objectFit: 'cover' }} />
         </Link>
         <button
           onClick={() => setMobileMenuOpen(true)}

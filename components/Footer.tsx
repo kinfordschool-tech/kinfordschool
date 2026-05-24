@@ -5,7 +5,7 @@ export default function Footer() {
     <footer style={{ background: '#1E1E1E', color: 'white', padding: '60px 6vw 32px' }}>
       <div className="footer-grid-col" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 60, marginBottom: 48 }}>
         <div>
-          <img src="/kinford-logo.png" alt="Kinford School of Guidance" style={{ width: 120, display: 'block' }} />
+          <img src="/kinford-icon.jpg" alt="Kinford School of Guidance" style={{ width: 44, height: 44, borderRadius: '6px', objectFit: 'cover', display: 'block' }} />
           <p style={{ marginTop: 20, fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, maxWidth: 280 }}>
             A premium residential school built on friendship, guided by purpose. Thamarassery, Kozhikode, Kerala.
           </p>
