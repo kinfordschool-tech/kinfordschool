@@ -151,3 +151,27 @@ export async function POST(request: Request) {
     )
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (!id) {
+      return NextResponse.json({ error: 'Missing enquiry ID parameter.' }, { status: 400 })
+    }
+
+    const { error } = await supabase
+      .from('enquiries')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true, message: 'Enquiry deleted successfully.' })
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'An error occurred during deletion.' }, { status: 500 })
+  }
+}

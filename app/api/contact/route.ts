@@ -82,3 +82,27 @@ export async function POST(request: Request) {
     )
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (!id) {
+      return NextResponse.json({ error: 'Missing message ID parameter.' }, { status: 400 })
+    }
+
+    const { error } = await supabase
+      .from('contact_messages')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true, message: 'Message deleted successfully.' })
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'An error occurred during deletion.' }, { status: 500 })
+  }
+}

@@ -103,6 +103,50 @@ export default function AdminDashboard() {
     router.replace('/')
   }
 
+  const handleDeleteEnquiry = async (id: number) => {
+    if (!window.confirm('Are you sure you want to delete this enquiry? This action cannot be undone.')) {
+      return
+    }
+    
+    try {
+      const res = await fetch(`/api/enquiry?id=${id}`, {
+        method: 'DELETE',
+      })
+      const data = await res.json()
+      if (data.success) {
+        setEnquiries(enquiries.filter(e => e.id !== id))
+        setSelectedEnquiry(null)
+      } else {
+        alert(data.error || 'Failed to delete enquiry.')
+      }
+    } catch (err: any) {
+      console.error(err)
+      alert(err.message || 'An error occurred while deleting the enquiry.')
+    }
+  }
+
+  const handleDeleteMessage = async (id: number) => {
+    if (!window.confirm('Are you sure you want to delete this contact message? This action cannot be undone.')) {
+      return
+    }
+
+    try {
+      const res = await fetch(`/api/contact?id=${id}`, {
+        method: 'DELETE',
+      })
+      const data = await res.json()
+      if (data.success) {
+        setMessages(messages.filter(m => m.id !== id))
+        setSelectedMessage(null)
+      } else {
+        alert(data.error || 'Failed to delete message.')
+      }
+    } catch (err: any) {
+      console.error(err)
+      alert(err.message || 'An error occurred while deleting the message.')
+    }
+  }
+
   const formatDate = (dateStr: string) => {
     try {
       const date = new Date(dateStr)
@@ -394,24 +438,50 @@ export default function AdminDashboard() {
                         </td>
                         <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{formatDate(enq.created_at)}</td>
                         <td style={{ padding: '18px 24px', textAlign: 'right' }}>
-                          <button
-                            onClick={() => setSelectedEnquiry(enq)}
-                            style={{
-                              background: '#A0163B',
-                              color: '#ffffff',
-                              border: 'none',
-                              borderRadius: '30px',
-                              padding: '6px 16px',
-                              fontSize: '13px',
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              transition: 'background-color 0.2s'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
-                          >
-                            View
-                          </button>
+                          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                            <button
+                              onClick={() => setSelectedEnquiry(enq)}
+                              style={{
+                                background: '#A0163B',
+                                color: '#ffffff',
+                                border: 'none',
+                                borderRadius: '30px',
+                                padding: '6px 16px',
+                                fontSize: '13px',
+                                fontWeight: 600,
+                                cursor: 'pointer',
+                                transition: 'background-color 0.2s'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
+                            >
+                              View
+                            </button>
+                            <button
+                              onClick={() => handleDeleteEnquiry(enq.id)}
+                              style={{
+                                background: 'transparent',
+                                color: 'rgba(255,255,255,0.6)',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '30px',
+                                padding: '5px 14px',
+                                fontSize: '13px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.color = '#ff4d4d'
+                                e.currentTarget.style.borderColor = '#ff4d4d'
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.color = 'rgba(255,255,255,0.6)'
+                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -473,24 +543,50 @@ export default function AdminDashboard() {
                         <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)', maxWidth: '280px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{msg.message}</td>
                         <td style={{ padding: '18px 24px', fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>{formatDate(msg.created_at)}</td>
                         <td style={{ padding: '18px 24px', textAlign: 'right' }}>
-                          <button
-                            onClick={() => setSelectedMessage(msg)}
-                            style={{
-                              background: '#A0163B',
-                              color: '#ffffff',
-                              border: 'none',
-                              borderRadius: '30px',
-                              padding: '6px 16px',
-                              fontSize: '13px',
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              transition: 'background-color 0.2s'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
-                          >
-                            View
-                          </button>
+                          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                            <button
+                              onClick={() => setSelectedMessage(msg)}
+                              style={{
+                                background: '#A0163B',
+                                color: '#ffffff',
+                                border: 'none',
+                                borderRadius: '30px',
+                                padding: '6px 16px',
+                                fontSize: '13px',
+                                fontWeight: 600,
+                                cursor: 'pointer',
+                                transition: 'background-color 0.2s'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7a1030'}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#A0163B'}
+                            >
+                              View
+                            </button>
+                            <button
+                              onClick={() => handleDeleteMessage(msg.id)}
+                              style={{
+                                background: 'transparent',
+                                color: 'rgba(255,255,255,0.6)',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                borderRadius: '30px',
+                                padding: '5px 14px',
+                                fontSize: '13px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.color = '#ff4d4d'
+                                e.currentTarget.style.borderColor = '#ff4d4d'
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.color = 'rgba(255,255,255,0.6)'
+                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -642,8 +738,31 @@ export default function AdminDashboard() {
               padding: '20px 32px',
               borderTop: '1px solid rgba(255,255,255,0.06)',
               display: 'flex',
-              justifyContent: 'flex-end'
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
+              <button
+                onClick={() => handleDeleteEnquiry(selectedEnquiry.id)}
+                style={{
+                  background: 'rgba(255,77,77,0.1)',
+                  color: '#ff4d4d',
+                  border: '1px solid rgba(255,77,77,0.3)',
+                  borderRadius: '30px',
+                  padding: '10px 24px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,77,77,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,77,77,0.1)'
+                }}
+              >
+                Delete Enquiry
+              </button>
               <button
                 onClick={() => setSelectedEnquiry(null)}
                 style={{
@@ -794,8 +913,31 @@ export default function AdminDashboard() {
               padding: '20px 32px',
               borderTop: '1px solid rgba(255,255,255,0.06)',
               display: 'flex',
-              justifyContent: 'flex-end'
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
+              <button
+                onClick={() => handleDeleteMessage(selectedMessage.id)}
+                style={{
+                  background: 'rgba(255,77,77,0.1)',
+                  color: '#ff4d4d',
+                  border: '1px solid rgba(255,77,77,0.3)',
+                  borderRadius: '30px',
+                  padding: '10px 24px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,77,77,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,77,77,0.1)'
+                }}
+              >
+                Delete Message
+              </button>
               <button
                 onClick={() => setSelectedMessage(null)}
                 style={{
