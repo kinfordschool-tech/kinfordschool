@@ -40,7 +40,7 @@ export default function About() {
           </Reveal>
           <Reveal delay={200}>
             <div style={{ background: '#1E1E1E', borderRadius: 20, padding: '40px 36px' }}>
-              <p style={{ fontSize: 11, color: '#F5B800', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>Our Mission</p>
+              <p style={{ fontSize: 11, color: '#F5B800', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24 }}>Guided thought</p>
               <p style={{ fontSize: 20, fontWeight: 500, color: '#fff', lineHeight: 1.7 }}>
                 "Education goes beyond classrooms. We focus on character, communication, innovation, and practical learning to help students grow into confident and future-ready individuals."
               </p>
