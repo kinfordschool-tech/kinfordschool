@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
+import Logo from '@/components/Logo'
 
 const rotatingLines = [
   'Where knowledge meets character.',
@@ -69,9 +70,9 @@ export default function Home() {
   return (
     <main>
       {/* HERO */}
-      <section className="mobile-hero-padding" style={{ minHeight: '100vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
+      <section className="mobile-hero-padding" style={{ minHeight: '100vh', background: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
         {/* Arch watermark */}
-        <svg style={{ position: 'absolute', bottom: -80, left: '50%', transform: 'translateX(-50%)', width: 700, opacity: 0.04 }} viewBox="0 0 700 350" fill="none">
+        <svg style={{ position: 'absolute', bottom: -80, left: '50%', transform: 'translateX(-50%)', width: 700, opacity: 0.05 }} viewBox="0 0 700 350" fill="none">
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
@@ -79,14 +80,12 @@ export default function Home() {
           className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
 
-          <img
-            src="/kinford-logo.png"
-            alt="Kinford School of Guidance"
-            style={{ width: 'clamp(140px, 18vw, 220px)', display: 'block', margin: '0 auto' }}
-          />
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+            <Logo dark={true} size="lg" />
+          </div>
 
           <div style={{ marginTop: 40, minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
-            <p style={{ fontSize: 'clamp(16px,2.5vw,26px)', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.01em' }}>
+            <p style={{ fontSize: 'clamp(16px,2.5vw,26px)', fontWeight: 300, color: '#555', letterSpacing: '0.01em' }}>
               {rotatingLines[lineIndex]}
             </p>
           </div>
@@ -95,7 +94,7 @@ export default function Home() {
             <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none', letterSpacing: '0.02em' }}>
               Begin Your Journey →
             </Link>
-            <Link href="/about" style={{ border: '1.5px solid rgba(255,255,255,0.25)', color: 'white', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>
+            <Link href="/about" style={{ border: '1.5px solid #1E1E1E', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>
               Our Story
             </Link>
           </div>
@@ -105,22 +104,22 @@ export default function Home() {
       </section>
 
       {/* WHY KINFORD */}
-      <section style={{ background: '#fff', padding: '100px 6vw' }}>
+      <section style={{ background: '#1E1E1E', padding: '100px 6vw' }}>
         <Reveal>
-          <p className="section-label" style={{ color: '#A0163B' }}>Why Kinford</p>
-          <h2 style={{ fontSize: 'clamp(36px,5vw,60px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 60, maxWidth: 600 }}>
+          <p className="section-label" style={{ color: '#F5B800' }}>Why Kinford</p>
+          <h2 style={{ fontSize: 'clamp(36px,5vw,60px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: 60, maxWidth: 600 }}>
             Reasons why parents choose us.
           </h2>
         </Reveal>
-        <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: '#eee' }}>
+        <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 1, background: 'rgba(255,255,255,0.08)' }}>
           {whyKinford.map((w, i) => (
             <Reveal key={i} delay={i * 80}>
-              <div style={{ background: '#fff', padding: '40px 32px', transition: 'background 0.2s' }}
-                onMouseEnter={e => (e.currentTarget.style.background = '#fafafa')}
-                onMouseLeave={e => (e.currentTarget.style.background = '#fff')}>
+              <div style={{ background: '#1E1E1E', padding: '40px 32px', transition: 'background 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#1E1E1E')}>
                 <p style={{ fontSize: 11, color: '#F5B800', fontWeight: 600, letterSpacing: '0.15em', marginBottom: 16 }}>{w.num}</p>
-                <h3 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12, letterSpacing: '-0.01em' }}>{w.title}</h3>
-                <p style={{ fontSize: 14, color: '#666', lineHeight: 1.8 }}>{w.body}</p>
+                <h3 style={{ fontSize: 20, fontWeight: 600, color: '#ffffff', marginBottom: 12, letterSpacing: '-0.01em' }}>{w.title}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.8 }}>{w.body}</p>
               </div>
             </Reveal>
           ))}
@@ -128,22 +127,22 @@ export default function Home() {
       </section>
 
       {/* BEYOND CLASSROOM */}
-      <section style={{ background: '#1E1E1E', padding: '100px 6vw' }}>
+      <section style={{ background: '#ffffff', padding: '100px 6vw' }}>
         <div className="beyond-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
           <Reveal>
-            <p className="section-label" style={{ color: '#F5B800' }}>Beyond Classroom</p>
-            <h2 style={{ fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 20 }}>
+            <p className="section-label" style={{ color: '#A0163B' }}>Beyond Classroom</p>
+            <h2 style={{ fontSize: 'clamp(32px,4vw,52px)', fontWeight: 700, color: '#1E1E1E', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 20 }}>
               Skills for life,<br />not just marks.
             </h2>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
+            <p style={{ fontSize: 16, color: '#666', lineHeight: 1.8 }}>
               Education at Kinford goes far beyond textbooks. We build students who can speak, lead, create, and innovate.
             </p>
           </Reveal>
           <div>
             {skills.map((s, i) => (
               <Reveal key={i} delay={i * 60}>
-                <div style={{ padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.07)', fontSize: 16, color: 'rgba(255,255,255,0.65)', display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{ flexShrink: 0 }} dangerouslySetInnerHTML={{ __html: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${skillIcons[i]}</svg>` }} />
+                <div style={{ padding: '18px 0', borderBottom: '1px solid rgba(0,0,0,0.07)', fontSize: 16, color: '#333', display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span style={{ flexShrink: 0 }} dangerouslySetInnerHTML={{ __html: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${skillIcons[i]}</svg>` }} />
                   {s}
                 </div>
               </Reveal>
