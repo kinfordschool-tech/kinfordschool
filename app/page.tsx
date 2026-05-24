@@ -80,11 +80,11 @@ export default function Home() {
           className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
 
-          <div style={{ display: 'inline-block', background: '#1E1E1E', padding: '14px 28px', borderRadius: '50px', marginBottom: 20, boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
             <img
-              src="/kinford-logo.png"
+              src="/kinford-logo-dark.jpg"
               alt="Kinford School of Guidance"
-              style={{ width: 'clamp(140px, 18vw, 220px)', display: 'block', margin: '0 auto' }}
+              style={{ width: 'clamp(200px, 25vw, 320px)', height: 'auto', display: 'block' }}
             />
           </div>
 
