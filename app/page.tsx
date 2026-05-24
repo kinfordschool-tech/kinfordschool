@@ -126,7 +126,7 @@ export default function Home() {
               <img
                 src="/kinford-logo-dark.jpg"
                 alt="Kinford School of Guidance"
-                style={{ width: 'clamp(200px, 25vw, 320px)', height: 'auto', display: 'block' }}
+                style={{ width: 'clamp(200px, 25vw, 320px)', height: 'auto', display: 'block', clipPath: 'inset(0 3.5%)' }}
               />
             </div>
 
@@ -150,8 +150,8 @@ export default function Home() {
           <div className="hero-image-col" style={{ display: 'none', animation: 'fadeUp 1.2s ease forwards', opacity: 0 }}>
             <div style={{ overflow: 'hidden', borderRadius: '24px', boxShadow: '0 20px 48px rgba(0,0,0,0.1)', border: '1px solid rgba(0,0,0,0.05)' }}>
               <img
-                src="/islamic-studies-class.png"
-                alt="Islamic Studies Class at Kinford"
+                src="/kinford-campus.jpg"
+                alt="Kinford School of Guidance Campus"
                 style={{ width: '100%', height: 'auto', display: 'block', transform: 'scale(1.02)' }}
               />
             </div>
