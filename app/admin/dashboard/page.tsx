@@ -14,6 +14,8 @@ interface Enquiry {
   gender: string
   message: string
   created_at: string
+  place?: string
+  last_school_studied?: string
 }
 
 interface ContactMessage {
@@ -703,7 +705,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+               <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Gender</span>
                   <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{selectedEnquiry.gender || '—'}</span>
@@ -711,6 +713,17 @@ export default function AdminDashboard() {
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Submission Date</span>
                   <span style={{ fontSize: '15px', color: 'rgba(255,255,255,0.8)' }}>{formatDate(selectedEnquiry.created_at)}</span>
+                </div>
+              </div>
+
+              <div className="about-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Place of Residence / Location</span>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{selectedEnquiry.place || '—'}</span>
+                </div>
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 500, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>Last School Studied</span>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{selectedEnquiry.last_school_studied || '—'}</span>
                 </div>
               </div>
 

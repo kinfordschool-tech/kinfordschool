@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, parent_name, email, phone, grade, gender, message } = body
+    const { name, parent_name, email, phone, grade, gender, message, place, last_school_studied } = body
 
     // Validation
     if (!name || !email || !phone || !grade || !gender) {
@@ -28,7 +28,9 @@ export async function POST(request: Request) {
         phone,
         grade,
         gender,
-        message
+        message,
+        place,
+        last_school_studied
       }])
 
     if (dbError) {
@@ -59,6 +61,14 @@ export async function POST(request: Request) {
           <tr>
             <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555; width: 180px;">Student Name</td>
             <td style="padding: 10px 0; border-bottom: 1px solid #eee; color: #111;">${name}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Place</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #eee; color: #111;">${place || '—'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Last School Studied</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #eee; color: #111;">${last_school_studied || '—'}</td>
           </tr>
           <tr>
             <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Parent Name</td>

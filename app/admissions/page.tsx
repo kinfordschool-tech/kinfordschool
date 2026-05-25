@@ -12,7 +12,7 @@ export default function Admissions() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  const [form, setForm] = useState({ name: '', parent: '', email: '', phone: '', grade: '', gender: '', message: '' })
+  const [form, setForm] = useState({ name: '', parent: '', email: '', phone: '', grade: '', gender: '', message: '', place: '', last_school_studied: '' })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,7 +32,9 @@ export default function Admissions() {
           phone: form.phone,
           grade: form.grade,
           gender: form.gender,
-          message: form.message
+          message: form.message,
+          place: form.place,
+          last_school_studied: form.last_school_studied
         })
       })
 
@@ -106,6 +108,8 @@ export default function Admissions() {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {[
                 { key: 'name', label: "Student's full name", type: 'text', placeholder: 'e.g. Mohammed Arshad' },
+                { key: 'place', label: "Place of residence / location", type: 'text', placeholder: 'e.g. Kozhikode' },
+                { key: 'last_school_studied', label: "Last school studied", type: 'text', placeholder: 'e.g. Green Hills Public School' },
                 { key: 'parent', label: "Parent / guardian name", type: 'text', placeholder: 'e.g. Abdul Rahman' },
                 { key: 'email', label: "Parent email address", type: 'email', placeholder: 'e.g. parent@example.com' },
                 { key: 'phone', label: 'Phone number', type: 'tel', placeholder: '+91 98765 43210' },
