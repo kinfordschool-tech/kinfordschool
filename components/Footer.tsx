@@ -25,7 +25,7 @@ export default function Footer() {
         <div>
           <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', marginBottom: 16 }}>Contact</p>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.9 }}>
-            +91 7025116441<br />
+            +91 6235774224<br />
             Thamarassery<br />
             Kozhikode, Kerala
           </p>

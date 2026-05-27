@@ -55,7 +55,7 @@ export default function Contact() {
           <Reveal>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
               {[
-                { label: 'Phone', value: '+91 7025116441', sub: 'Mon–Sat, 9am–5pm' },
+                { label: 'Phone', value: '+91 6235774224', sub: 'Mon–Sat, 9am–5pm' },
                 { label: 'Address', value: 'Thamarassery, Kozhikode', sub: 'Kerala, India' },
                 { label: 'Instagram', value: '@kinfordschool', sub: 'Follow us for updates' },
               ].map((c, i) => (

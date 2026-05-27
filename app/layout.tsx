@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Footer />
         <a
-          href="https://wa.me/917025116441"
+          href="https://wa.me/916235774224"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-float"
