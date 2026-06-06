@@ -54,33 +54,6 @@ const futureSkillIcons = [
   '<rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
   '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
 ]
-function HeroVideo() {
-  useEffect(() => {
-    console.log('video mounted')
-  }, [])
-
-  return (
-    <video
-      src="https://res.cloudinary.com/dbvogwgwk/video/upload/magnific_mode-firstframe-i2v-uses-_gJfG6mWSXO.mp4"
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="hero-video"
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        zIndex: 0,
-      }}
-      onError={(e) => console.error('video error', e)}
-    />
-  )
-}
-
 export default function Home() {
   const [lineIndex, setLineIndex] = useState(0)
   const [fade, setFade] = useState(true)
@@ -102,11 +75,37 @@ export default function Home() {
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
-        <HeroVideo />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="hero-video"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
+          src="https://res.cloudinary.com/dbvogwgwk/video/upload/magnific_mode-firstframe-i2v-uses-_gJfG6mWSXO.mp4"
+        />
 
-        <div className="hero-overlay" />
+        <div
+          className="hero-overlay"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(0,0,0,0.6)',
+            zIndex: 1,
+          }}
+        />
 
-        <div style={{ textAlign: 'center', zIndex: 2, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
+        <div style={{ textAlign: 'center', position: 'relative', zIndex: 2, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
           className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
 
