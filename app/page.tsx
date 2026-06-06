@@ -92,7 +92,7 @@ export default function Home() {
             zIndex: 0,
             pointerEvents: 'none',
           }}
-          src="https://res.cloudinary.com/dbvogwgwk/video/upload/magnific_mode-firstframe-i2v-uses-_gJfG6mWSXO.mp4"
+          src="/hero-bg.mp4"
         />
 
         <div
