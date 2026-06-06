@@ -76,7 +76,17 @@ export default function Home() {
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
-        <div className="hero-video" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+        <div className="hero-video" style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '120%',
+          height: '120%',
+          zIndex: 0,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+        }}>
           <ReactPlayer
             src="https://www.youtube.com/watch?v=-XOXyX_Pz_Q"
             playing
