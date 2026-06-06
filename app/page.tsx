@@ -57,6 +57,12 @@ const futureSkillIcons = [
 export default function Home() {
   const [lineIndex, setLineIndex] = useState(0)
   const [fade, setFade] = useState(true)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 1500)
+    return () => clearTimeout(t)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -85,6 +91,8 @@ export default function Home() {
           zIndex: 0,
           pointerEvents: 'none',
           overflow: 'hidden',
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 1s ease',
         }}>
           <iframe
             src="https://www.youtube.com/embed/-XOXyX_Pz_Q?autoplay=1&mute=1&loop=1&playlist=-XOXyX_Pz_Q&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&color=white&playsinline=1"
@@ -108,12 +116,14 @@ export default function Home() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(0,0,0,0.65)',
+            background: 'rgba(0,0,0,0.68)',
             zIndex: 1,
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity 1s ease',
           }}
         />
 
-        <div style={{ textAlign: 'center', position: 'relative', zIndex: 2, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
+        <div style={{ textAlign: 'center', position: 'relative', zIndex: 4, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
           className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
 
@@ -140,6 +150,17 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 3,
+          background: 'transparent',
+          pointerEvents: 'all',
+        }} />
       </section>
 
       {/* WHY KINFORD */}
