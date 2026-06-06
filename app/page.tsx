@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 import Logo from '@/components/Logo'
+import ReactPlayer from 'react-player'
 
 const rotatingLines = [
   'Where knowledge meets character.',
@@ -75,32 +76,37 @@ export default function Home() {
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="hero-video"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-            pointerEvents: 'none',
-          }}
-          src="/hero-bg.mp4"
-        />
+        <div className="hero-video" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+          <ReactPlayer
+            src="https://www.youtube.com/watch?v=-XOXyX_Pz_Q"
+            playing
+            loop
+            muted
+            playsInline
+            width="100%"
+            height="100%"
+            config={{
+              youtube: {
+                playerVars: {
+                  autoplay: 1,
+                  controls: 0,
+                  showinfo: 0,
+                  rel: 0,
+                  modestbranding: 1,
+                  loop: 1,
+                  playlist: '-XOXyX_Pz_Q'
+                }
+              } as any
+            }}
+          />
+        </div>
 
         <div
           className="hero-overlay"
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(0,0,0,0.6)',
+            background: 'rgba(0,0,0,0.65)',
             zIndex: 1,
           }}
         />
