@@ -240,16 +240,16 @@ body { font-family: var(--font-geist-sans), sans-serif; overflow-x: hidden; }
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 10, 10, 0.75);
+  background: rgba(10, 10, 10, 0.55);
   z-index: 1;
 }
 
 @media (max-width: 768px) {
   .hero-video {
-    display: none;
+    display: none !important;
   }
   .hero-overlay {
-    display: none;
+    display: none !important;
   }
 }
 
