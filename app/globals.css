@@ -257,4 +257,14 @@ iframe {
   pointer-events: none;
 }
 
+.ytp-pause-overlay,
+.ytp-chrome-top,
+.ytp-chrome-bottom,
+.ytp-watermark,
+.ytp-show-tiles-title,
+.ytp-endscreen-content {
+  display: none !important;
+  opacity: 0 !important;
+}
+
 

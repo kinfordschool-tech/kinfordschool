@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 import Logo from '@/components/Logo'
-import ReactPlayer from 'react-player'
 
 const rotatingLines = [
   'Where knowledge meets character.',
@@ -81,33 +80,26 @@ export default function Home() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '120%',
-          height: '120%',
+          width: '130%',
+          height: '130%',
           zIndex: 0,
           pointerEvents: 'none',
           overflow: 'hidden',
         }}>
-          <ReactPlayer
-            src="https://www.youtube.com/watch?v=-XOXyX_Pz_Q"
-            playing
-            loop
-            muted
-            playsInline
-            width="100%"
-            height="100%"
-            config={{
-              youtube: {
-                playerVars: {
-                  autoplay: 1,
-                  controls: 0,
-                  showinfo: 0,
-                  rel: 0,
-                  modestbranding: 1,
-                  loop: 1,
-                  playlist: '-XOXyX_Pz_Q'
-                }
-              } as any
+          <iframe
+            src="https://www.youtube.com/embed/-XOXyX_Pz_Q?autoplay=1&mute=1&loop=1&playlist=-XOXyX_Pz_Q&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&color=white&playsinline=1"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              pointerEvents: 'none',
             }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen={false}
           />
         </div>
 
