@@ -104,6 +104,7 @@ export default function Home() {
               width: '100%',
               height: '100%',
               border: 'none',
+              outline: 'none',
               pointerEvents: 'none',
             }}
             allow="autoplay; encrypted-media"
@@ -123,7 +124,7 @@ export default function Home() {
           }}
         />
 
-        <div style={{ textAlign: 'center', position: 'relative', zIndex: 4, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
+        <div style={{ textAlign: 'center', position: 'relative', zIndex: 11, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
           className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
 
@@ -157,9 +158,9 @@ export default function Home() {
           left: 0,
           width: '100%',
           height: '100%',
-          zIndex: 3,
+          zIndex: 10,
           background: 'transparent',
-          pointerEvents: 'all',
+          cursor: 'default',
         }} />
       </section>
 
