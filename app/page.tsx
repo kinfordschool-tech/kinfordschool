@@ -76,6 +76,17 @@ export default function Home() {
           <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
         </svg>
 
+        <video
+          src="https://res.cloudinary.com/dbvogwgwk/video/upload/magnific_mode-firstframe-i2v-uses-_gJfG6mWSXO.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="hero-video"
+        />
+
+        <div className="hero-overlay" />
+
         <div style={{ textAlign: 'center', zIndex: 2, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
           className="animate-hero mobile-full-width">
           <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
