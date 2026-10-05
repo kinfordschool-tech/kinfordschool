@@ -26,13 +26,7 @@ export default function Hero() {
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryItem | null>(null)
   const [lineIndex, setLineIndex] = useState(0)
   const [fade, setFade] = useState(true)
-  const [loaded, setLoaded] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1000)
-    return () => clearTimeout(t)
-  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -77,7 +71,7 @@ export default function Hero() {
   const slots = Array.from({ length: TOTAL_SLOTS }).map((_, index) => {
     const photo = photos[index] || null
     const borderColor = index % 2 === 0 ? '#A0163B' : '#F5B800'
-    const glowColor = index % 2 === 0 ? 'rgba(160, 22, 59, 0.7)' : 'rgba(245, 184, 0, 0.7)'
+    const glowColor = index % 2 === 0 ? 'rgba(160, 22, 59, 0.4)' : 'rgba(245, 184, 0, 0.4)'
     return { index, photo, borderColor, glowColor }
   })
 
@@ -86,7 +80,7 @@ export default function Hero() {
       className="hero-section"
       style={{
         minHeight: '100vh',
-        background: '#141414',
+        background: '#FFFFFF',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -96,7 +90,7 @@ export default function Hero() {
         padding: '120px 4vw 60px',
       }}
     >
-      {/* Styles for Orbit Animation and Responsiveness */}
+      {/* Styles for Orbit Animation, Square Frames, and Hover Popup */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes orbitRotate {
           0% { transform: rotate(0deg); }
@@ -112,8 +106,8 @@ export default function Hero() {
           width: 520px;
           height: 520px;
           display: flex;
-          alignItems: center;
-          justifyContent: center;
+          align-items: center;
+          justify-content: center;
           margin: 0 auto;
         }
 
@@ -130,18 +124,19 @@ export default function Hero() {
 
         .orbit-item {
           position: absolute;
-          width: 120px;
-          height: 120px;
+          width: 110px;
+          height: 110px;
           top: 50%;
           left: 50%;
-          margin-top: -60px;
-          margin-left: -60px;
+          margin-top: -55px;
+          margin-left: -55px;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .orbit-item-inner {
           width: 100%;
           height: 100%;
+          position: relative;
           animation: counterRotate 30s linear infinite;
         }
 
@@ -149,28 +144,33 @@ export default function Hero() {
           animation-play-state: paused !important;
         }
 
-        .photo-circle {
-          width: 120px;
-          height: 120px;
-          border-radius: 50%;
+        .photo-square {
+          width: 110px;
+          height: 110px;
+          border-radius: 12px;
           position: relative;
-          overflow: hidden;
           cursor: pointer;
           transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-          background: rgba(20, 20, 20, 0.7);
-          backdrop-filter: blur(12px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          background: #F8F9FA;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.08);
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
-        .photo-circle:hover {
+        .photo-square:hover {
           transform: scale(1.3);
           z-index: 50;
         }
 
-        .photo-circle img {
+        .photo-square-img-wrap {
+          width: 100%;
+          height: 100%;
+          border-radius: 9px;
+          overflow: hidden;
+        }
+
+        .photo-square img {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -178,8 +178,61 @@ export default function Hero() {
           transition: transform 0.4s ease;
         }
 
-        .photo-circle:hover img {
+        .photo-square:hover img {
           transform: scale(1.08);
+        }
+
+        /* Hover Popup Card */
+        .hover-popup {
+          position: absolute;
+          bottom: calc(100% + 12px);
+          left: 50%;
+          width: 200px;
+          background: #1E1E1E;
+          border-radius: 12px;
+          padding: 12px 14px 14px;
+          box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+          pointer-events: none;
+          opacity: 0;
+          visibility: hidden;
+          transform: translate(-50%, 6px);
+          transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+          z-index: 60;
+          text-align: left;
+        }
+
+        .hover-popup-accent {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #F5B800;
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
+        }
+
+        .hover-popup-title {
+          font-size: 14px;
+          font-weight: 700;
+          color: #FFFFFF;
+          margin: 0 0 4px 0;
+          line-height: 1.3;
+          word-break: break-word;
+        }
+
+        .hover-popup-subtitle {
+          font-size: 11px;
+          font-weight: 400;
+          color: #888888;
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        .photo-square:hover .hover-popup {
+          opacity: 1;
+          visibility: visible;
+          transform: translate(-50%, 0);
         }
 
         @media (max-width: 640px) {
@@ -188,82 +241,21 @@ export default function Hero() {
             height: 320px;
           }
           .orbit-item {
-            width: 80px;
-            height: 80px;
-            margin-top: -40px;
-            margin-left: -40px;
+            width: 75px;
+            height: 75px;
+            margin-top: -37.5px;
+            margin-left: -37.5px;
           }
-          .photo-circle {
-            width: 80px;
-            height: 80px;
+          .photo-square {
+            width: 75px;
+            height: 75px;
+            border-radius: 10px;
+          }
+          .hover-popup {
+            display: none !important;
           }
         }
       `}} />
-
-      {/* Arch watermark */}
-      <svg
-        style={{
-          position: 'absolute',
-          bottom: -80,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 700,
-          opacity: 0.05,
-          pointerEvents: 'none',
-        }}
-        viewBox="0 0 700 350"
-        fill="none"
-      >
-        <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
-      </svg>
-
-      {/* YouTube Background Video */}
-      <div
-        className="hero-video"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '130%',
-          height: '130%',
-          zIndex: 0,
-          pointerEvents: 'none',
-          overflow: 'hidden',
-          opacity: loaded ? 1 : 0,
-          transition: 'opacity 1s ease',
-        }}
-      >
-        <iframe
-          src="https://www.youtube.com/embed/-XOXyX_Pz_Q?autoplay=1&mute=1&loop=1&playlist=-XOXyX_Pz_Q&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&color=white&playsinline=1"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            outline: 'none',
-            pointerEvents: 'none',
-          }}
-          allow="autoplay; encrypted-media"
-          allowFullScreen={false}
-        />
-      </div>
-
-      {/* Hero Overlay */}
-      <div
-        className="hero-overlay"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(12, 12, 12, 0.72)',
-          zIndex: 1,
-          opacity: loaded ? 1 : 0,
-          transition: 'opacity 1s ease',
-        }}
-      />
 
       {/* Central Content: Orbit Ring with Center Logo */}
       <div
@@ -279,7 +271,7 @@ export default function Hero() {
       >
         {/* Orbit Ring Layout */}
         <div className="orbit-container">
-          {/* Centered Kinford Logo */}
+          {/* Centered Kinford Logo (Color Version) */}
           <div
             style={{
               position: 'absolute',
@@ -295,12 +287,11 @@ export default function Hero() {
           >
             <div
               style={{
-                background: 'rgba(20, 20, 20, 0.65)',
-                backdropFilter: 'blur(16px)',
+                background: '#FFFFFF',
                 padding: '24px 32px',
                 borderRadius: '50px',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.08)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -318,7 +309,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Continuous Rotating Ring for 8 Orbiting Circles */}
+          {/* Continuous Rotating Ring for 8 Orbiting Squares */}
           <div
             className={`orbit-ring ${isPaused ? 'paused' : ''}`}
             onMouseEnter={() => setIsPaused(true)}
@@ -326,10 +317,11 @@ export default function Hero() {
           >
             {slots.map(({ index, photo, borderColor, glowColor }) => {
               const angle = (index * (360 / TOTAL_SLOTS) * Math.PI) / 180
-              // Responsive radius calculation: desktop ~210px, mobile handled in CSS scaling
               const radiusDesktop = 210
               const xDesktop = Math.cos(angle) * radiusDesktop
               const yDesktop = Math.sin(angle) * radiusDesktop
+
+              const photoTitle = photo?.title && photo.title.trim() ? photo.title : 'Kinford'
 
               return (
                 <div
@@ -341,15 +333,15 @@ export default function Hero() {
                 >
                   <div className="orbit-item-inner">
                     <div
-                      className="photo-circle"
+                      className="photo-square"
                       style={{
                         border: `2.5px solid ${borderColor}`,
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = `0 0 30px ${glowColor}, 0 10px 30px rgba(0,0,0,0.6)`
+                        e.currentTarget.style.boxShadow = `0 0 24px ${glowColor}, 0 10px 24px rgba(0,0,0,0.12)`
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'
+                        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)'
                       }}
                       onClick={() => {
                         if (photo) {
@@ -357,38 +349,46 @@ export default function Hero() {
                         }
                       }}
                     >
-                      {photo ? (
-                        <img src={photo.url} alt={photo.title || `Kinford Gallery ${index + 1}`} />
-                      ) : (
-                        /* Soft Placeholder (blurred dark circle with subtle icon) */
-                        <div
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.4) 100%)',
-                            backdropFilter: 'blur(8px)',
-                          }}
-                        >
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke={borderColor}
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            style={{ opacity: 0.5 }}
+                      {/* Hover Popup Card */}
+                      <div className="hover-popup">
+                        <div className="hover-popup-accent" />
+                        <p className="hover-popup-title">{photoTitle}</p>
+                        <p className="hover-popup-subtitle">Kinford School of Guidance</p>
+                      </div>
+
+                      <div className="photo-square-img-wrap">
+                        {photo ? (
+                          <img src={photo.url} alt={photoTitle} />
+                        ) : (
+                          /* Soft Placeholder for empty slots */
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              background: '#F1F3F5',
+                            }}
                           >
-                            <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                          </svg>
-                        </div>
-                      )}
+                            <svg
+                              width="22"
+                              height="22"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke={borderColor}
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              style={{ opacity: 0.6 }}
+                            >
+                              <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+                              <circle cx="8.5" cy="8.5" r="1.5" />
+                              <polyline points="21 15 16 10 5 21" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -397,14 +397,14 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Rotating Taglines & Action Buttons */}
+        {/* Rotating Taglines & Action Buttons (Dark text & borders for white hero) */}
         <div style={{ textAlign: 'center', marginTop: 40, width: '100%' }}>
           <div style={{ minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
             <p
               style={{
                 fontSize: 'clamp(16px,2.5vw,24px)',
-                fontWeight: 300,
-                color: 'rgba(255,255,255,0.85)',
+                fontWeight: 400,
+                color: '#1E1E1E',
                 letterSpacing: '0.01em',
               }}
             >
@@ -433,7 +433,7 @@ export default function Hero() {
                 fontWeight: 700,
                 textDecoration: 'none',
                 letterSpacing: '0.02em',
-                boxShadow: '0 8px 24px rgba(245,184,0,0.25)',
+                boxShadow: '0 8px 24px rgba(245,184,0,0.3)',
                 transition: 'transform 0.2s, box-shadow 0.2s',
               }}
             >
@@ -442,14 +442,14 @@ export default function Hero() {
             <Link
               href="/about"
               style={{
-                border: '1.5px solid rgba(255,255,255,0.6)',
-                color: '#ffffff',
+                border: '1.5px solid #1E1E1E',
+                color: '#1E1E1E',
                 padding: '14px 34px',
                 borderRadius: 50,
                 fontSize: 14,
-                fontWeight: 500,
+                fontWeight: 600,
                 textDecoration: 'none',
-                transition: 'background 0.2s, border-color 0.2s',
+                transition: 'background 0.2s, color 0.2s',
               }}
             >
               Our Story
@@ -466,8 +466,8 @@ export default function Hero() {
             position: 'fixed',
             inset: 0,
             zIndex: 1000,
-            background: 'rgba(0, 0, 0, 0.88)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
