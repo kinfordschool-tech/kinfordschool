@@ -19,14 +19,11 @@ const rotatingLines = [
   'A school that shapes who you become.',
 ]
 
-const TOTAL_SLOTS = 8
-
 export default function Hero() {
   const [photos, setPhotos] = useState<GalleryItem[]>([])
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryItem | null>(null)
   const [lineIndex, setLineIndex] = useState(0)
   const [fade, setFade] = useState(true)
-  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,12 +65,9 @@ export default function Hero() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const slots = Array.from({ length: TOTAL_SLOTS }).map((_, index) => {
-    const photo = photos[index] || null
-    const borderColor = index % 2 === 0 ? '#A0163B' : '#F5B800'
-    const glowColor = index % 2 === 0 ? 'rgba(160, 22, 59, 0.4)' : 'rgba(245, 184, 0, 0.4)'
-    return { index, photo, borderColor, glowColor }
-  })
+  const photoLeft = photos[0] || null
+  const photoRightTop = photos[1] || null
+  const photoRightBottom = photos[2] || null
 
   return (
     <section
@@ -87,177 +81,177 @@ export default function Hero() {
         justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
-        padding: '120px 4vw 60px',
+        padding: '100px 4vw 60px',
       }}
     >
-      {/* Styles for Orbit Animation, Square Frames, and Hover Popup */}
+      {/* Styles for Photo Cards Layout & Hover Effects */}
       <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes orbitRotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        @keyframes counterRotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(-360deg); }
-        }
-
-        .orbit-container {
-          position: relative;
-          width: 520px;
-          height: 520px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto;
-        }
-
-        .orbit-ring {
-          position: absolute;
-          inset: 0;
-          border-radius: 50%;
-          animation: orbitRotate 30s linear infinite;
-        }
-
-        .orbit-ring.paused, .orbit-ring:hover {
-          animation-play-state: paused !important;
-        }
-
-        .orbit-item {
-          position: absolute;
-          width: 110px;
-          height: 110px;
-          top: 50%;
-          left: 50%;
-          margin-top: -55px;
-          margin-left: -55px;
-          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .orbit-item-inner {
-          width: 100%;
-          height: 100%;
-          position: relative;
-          animation: counterRotate 30s linear infinite;
-        }
-
-        .orbit-ring.paused .orbit-item-inner, .orbit-ring:hover .orbit-item-inner {
-          animation-play-state: paused !important;
-        }
-
-        .photo-square {
-          width: 110px;
-          height: 110px;
-          border-radius: 12px;
-          position: relative;
-          cursor: pointer;
-          transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-          background: #F8F9FA;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .photo-square:hover {
-          transform: scale(1.3);
-          z-index: 50;
-        }
-
-        .photo-square-img-wrap {
-          width: 100%;
-          height: 100%;
-          border-radius: 9px;
+        .hero-card {
+          background: #f5f5f5;
+          border-radius: 0px;
           overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: box-shadow 0.3s ease;
+          border: none;
         }
 
-        .photo-square img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          transition: transform 0.4s ease;
+        .hero-card:hover {
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
 
-        .photo-square:hover img {
-          transform: scale(1.08);
-        }
-
-        /* Hover Popup Card */
-        .hover-popup {
+        .hero-card-left {
           position: absolute;
-          bottom: calc(100% + 12px);
-          left: 50%;
+          left: 4vw;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 160px;
+          height: 320px;
+          z-index: 5;
+        }
+
+        .hero-card-right-top {
+          position: absolute;
+          right: 4vw;
+          top: calc(50% - 175px);
           width: 200px;
-          background: #1E1E1E;
-          border-radius: 12px;
-          padding: 12px 14px 14px;
-          box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-          pointer-events: none;
-          opacity: 0;
-          visibility: hidden;
-          transform: translate(-50%, 6px);
-          transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
-          z-index: 60;
-          text-align: left;
+          height: 160px;
+          z-index: 5;
         }
 
-        .hover-popup-accent {
+        .hero-card-right-bottom {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 3px;
-          background: #F5B800;
-          border-top-left-radius: 12px;
-          border-top-right-radius: 12px;
+          right: 4vw;
+          top: calc(50% + 15px);
+          width: 200px;
+          height: 160px;
+          z-index: 5;
         }
 
-        .hover-popup-title {
-          font-size: 14px;
-          font-weight: 700;
-          color: #FFFFFF;
-          margin: 0 0 4px 0;
-          line-height: 1.3;
-          word-break: break-word;
-        }
-
-        .hover-popup-subtitle {
-          font-size: 11px;
-          font-weight: 400;
-          color: #888888;
-          margin: 0;
-          line-height: 1.2;
-        }
-
-        .photo-square:hover .hover-popup {
-          opacity: 1;
-          visibility: visible;
-          transform: translate(-50%, 0);
-        }
-
-        @media (max-width: 640px) {
-          .orbit-container {
-            width: 320px;
-            height: 320px;
-          }
-          .orbit-item {
-            width: 75px;
-            height: 75px;
-            margin-top: -37.5px;
-            margin-left: -37.5px;
-          }
-          .photo-square {
-            width: 75px;
-            height: 75px;
-            border-radius: 10px;
-          }
-          .hover-popup {
+        @media (max-width: 960px) {
+          .hero-card-left, .hero-card-right-top, .hero-card-right-bottom {
             display: none !important;
           }
         }
       `}} />
 
-      {/* Central Content: Orbit Ring with Center Logo */}
+      {/* Left side card: Tall vertical rectangle (160px x 320px) */}
+      <div
+        className="hero-card hero-card-left"
+        onClick={() => photoLeft && setSelectedPhoto(photoLeft)}
+      >
+        {photoLeft ? (
+          <img
+            src={photoLeft.url}
+            alt={photoLeft.title || 'Kinford Gallery 1'}
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              background: '#e5e5e5',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Right side top card: Rectangle (200px x 160px) */}
+      <div
+        className="hero-card hero-card-right-top"
+        onClick={() => photoRightTop && setSelectedPhoto(photoRightTop)}
+      >
+        {photoRightTop ? (
+          <img
+            src={photoRightTop.url}
+            alt={photoRightTop.title || 'Kinford Gallery 2'}
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              background: '#e5e5e5',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Right side bottom card: Rectangle (200px x 160px) */}
+      <div
+        className="hero-card hero-card-right-bottom"
+        onClick={() => photoRightBottom && setSelectedPhoto(photoRightBottom)}
+      >
+        {photoRightBottom ? (
+          <img
+            src={photoRightBottom.url}
+            alt={photoRightBottom.title || 'Kinford Gallery 3'}
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              background: '#e5e5e5',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Centered Content: Small Kinford Logo, Tagline, Action Buttons */}
       <div
         style={{
           position: 'relative',
@@ -265,196 +259,82 @@ export default function Hero() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          textAlign: 'center',
           width: '100%',
-          maxWidth: '800px',
+          maxWidth: '650px',
         }}
       >
-        {/* Orbit Ring Layout */}
-        <div className="orbit-container">
-          {/* Centered Kinford Logo (Color Version) */}
-          <div
+        {/* Centered Kinford Logo (Small 180px, no card or background) */}
+        <div style={{ marginBottom: 24 }}>
+          <img
+            src="/kinford-logo.png"
+            alt="Kinford School of Guidance"
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              pointerEvents: 'auto',
+              width: 180,
+              height: 'auto',
+              display: 'block',
             }}
-          >
-            <div
-              style={{
-                background: '#FFFFFF',
-                padding: '24px 32px',
-                borderRadius: '50px',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <img
-                src="/kinford-logo.png"
-                alt="Kinford School of Guidance"
-                style={{
-                  width: 'clamp(120px, 15vw, 180px)',
-                  height: 'auto',
-                  display: 'block',
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Continuous Rotating Ring for 8 Orbiting Squares */}
-          <div
-            className={`orbit-ring ${isPaused ? 'paused' : ''}`}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            {slots.map(({ index, photo, borderColor, glowColor }) => {
-              const angle = (index * (360 / TOTAL_SLOTS) * Math.PI) / 180
-              const radiusDesktop = 210
-              const xDesktop = Math.cos(angle) * radiusDesktop
-              const yDesktop = Math.sin(angle) * radiusDesktop
-
-              const photoTitle = photo?.title && photo.title.trim() ? photo.title : 'Kinford'
-
-              return (
-                <div
-                  key={index}
-                  className="orbit-item"
-                  style={{
-                    transform: `translate(${xDesktop}px, ${yDesktop}px)`,
-                  }}
-                >
-                  <div className="orbit-item-inner">
-                    <div
-                      className="photo-square"
-                      style={{
-                        border: `2.5px solid ${borderColor}`,
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = `0 0 24px ${glowColor}, 0 10px 24px rgba(0,0,0,0.12)`
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)'
-                      }}
-                      onClick={() => {
-                        if (photo) {
-                          setSelectedPhoto(photo)
-                        }
-                      }}
-                    >
-                      {/* Hover Popup Card */}
-                      <div className="hover-popup">
-                        <div className="hover-popup-accent" />
-                        <p className="hover-popup-title">{photoTitle}</p>
-                        <p className="hover-popup-subtitle">Kinford School of Guidance</p>
-                      </div>
-
-                      <div className="photo-square-img-wrap">
-                        {photo ? (
-                          <img src={photo.url} alt={photoTitle} />
-                        ) : (
-                          /* Soft Placeholder for empty slots */
-                          <div
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              background: '#F1F3F5',
-                            }}
-                          >
-                            <svg
-                              width="22"
-                              height="22"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke={borderColor}
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              style={{ opacity: 0.6 }}
-                            >
-                              <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
-                              <circle cx="8.5" cy="8.5" r="1.5" />
-                              <polyline points="21 15 16 10 5 21" />
-                            </svg>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          />
         </div>
 
-        {/* Rotating Taglines & Action Buttons (Dark text & borders for white hero) */}
-        <div style={{ textAlign: 'center', marginTop: 40, width: '100%' }}>
-          <div style={{ minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
-            <p
-              style={{
-                fontSize: 'clamp(16px,2.5vw,24px)',
-                fontWeight: 400,
-                color: '#1E1E1E',
-                letterSpacing: '0.01em',
-              }}
-            >
-              {rotatingLines[lineIndex]}
-            </p>
-          </div>
-
-          <div
-            className="mobile-stack-buttons"
+        {/* Tagline Below Logo */}
+        <div style={{ minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0, marginTop: 16 }}>
+          <p
             style={{
-              marginTop: 32,
-              display: 'flex',
-              gap: 16,
-              justifyContent: 'center',
-              flexWrap: 'wrap',
+              fontSize: 'clamp(18px,2.5vw,26px)',
+              fontWeight: 400,
+              color: '#1E1E1E',
+              letterSpacing: '0.01em',
+              lineHeight: 1.4,
             }}
           >
-            <Link
-              href="/admissions"
-              style={{
-                background: '#F5B800',
-                color: '#1E1E1E',
-                padding: '14px 34px',
-                borderRadius: 50,
-                fontSize: 14,
-                fontWeight: 700,
-                textDecoration: 'none',
-                letterSpacing: '0.02em',
-                boxShadow: '0 8px 24px rgba(245,184,0,0.3)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-              }}
-            >
-              Begin Your Journey →
-            </Link>
-            <Link
-              href="/about"
-              style={{
-                border: '1.5px solid #1E1E1E',
-                color: '#1E1E1E',
-                padding: '14px 34px',
-                borderRadius: 50,
-                fontSize: 14,
-                fontWeight: 600,
-                textDecoration: 'none',
-                transition: 'background 0.2s, color 0.2s',
-              }}
-            >
-              Our Story
-            </Link>
-          </div>
+            {rotatingLines[lineIndex]}
+          </p>
+        </div>
+
+        {/* Buttons Below Tagline */}
+        <div
+          className="mobile-stack-buttons"
+          style={{
+            marginTop: 36,
+            display: 'flex',
+            gap: 16,
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Link
+            href="/admissions"
+            style={{
+              background: '#F5B800',
+              color: '#1E1E1E',
+              padding: '14px 34px',
+              borderRadius: 50,
+              fontSize: 14,
+              fontWeight: 700,
+              textDecoration: 'none',
+              letterSpacing: '0.02em',
+              boxShadow: '0 8px 24px rgba(245,184,0,0.3)',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+            }}
+          >
+            Begin Your Journey →
+          </Link>
+          <Link
+            href="/about"
+            style={{
+              border: '1.5px solid #1E1E1E',
+              color: '#1E1E1E',
+              padding: '14px 34px',
+              borderRadius: 50,
+              fontSize: 14,
+              fontWeight: 600,
+              textDecoration: 'none',
+              transition: 'background 0.2s, color 0.2s',
+            }}
+          >
+            Our Story
+          </Link>
         </div>
       </div>
 
