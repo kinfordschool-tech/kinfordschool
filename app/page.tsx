@@ -1,15 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
-import Logo from '@/components/Logo'
-
-const rotatingLines = [
-  'Where knowledge meets character.',
-  'Built on friendship. Guided by purpose.',
-  'Guiding futures beyond academics.',
-  'A school that shapes who you become.',
-]
+import Hero from '@/components/Hero'
 
 const whyKinford = [
   { num: '01', title: 'Premium Residential Life', body: 'Safe, structured, and inspiring. Students live, learn, and grow together in a community built around discipline and care.' },
@@ -51,118 +43,15 @@ const futureSkillIcons = [
   '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>',
   '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
   '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
-  '<rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
+  '<rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
   '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
 ]
+
 export default function Home() {
-  const [lineIndex, setLineIndex] = useState(0)
-  const [fade, setFade] = useState(true)
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1500)
-    return () => clearTimeout(t)
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false)
-      setTimeout(() => { setLineIndex(i => (i + 1) % rotatingLines.length); setFade(true) }, 400)
-    }, 3200)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <main>
       {/* HERO */}
-      <section className="mobile-hero-padding" style={{ minHeight: '100vh', background: '#1E1E1E', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '0 6vw' }}>
-        {/* Arch watermark */}
-        <svg style={{ position: 'absolute', bottom: -80, left: '50%', transform: 'translateX(-50%)', width: 700, opacity: 0.05 }} viewBox="0 0 700 350" fill="none">
-          <path d="M0 350 C0 150 700 150 700 350" fill="#A0163B" />
-        </svg>
-
-        <div className="hero-video" style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '130%',
-          height: '130%',
-          zIndex: 0,
-          pointerEvents: 'none',
-          overflow: 'hidden',
-          opacity: loaded ? 1 : 0,
-          transition: 'opacity 1s ease',
-        }}>
-          <iframe
-            src="https://www.youtube.com/embed/-XOXyX_Pz_Q?autoplay=1&mute=1&loop=1&playlist=-XOXyX_Pz_Q&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&color=white&playsinline=1"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '100%',
-              height: '100%',
-              border: 'none',
-              outline: 'none',
-              pointerEvents: 'none',
-            }}
-            allow="autoplay; encrypted-media"
-            allowFullScreen={false}
-          />
-        </div>
-
-        <div
-          className="hero-overlay"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'rgba(0,0,0,0.68)',
-            zIndex: 1,
-            opacity: loaded ? 1 : 0,
-            transition: 'opacity 1s ease',
-          }}
-        />
-
-        <div style={{ textAlign: 'center', position: 'relative', zIndex: 11, animation: 'fadeUp 1s ease forwards', opacity: 0 }}
-          className="animate-hero mobile-full-width">
-          <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.animate-hero{animation:fadeUp 1s ease forwards}`}</style>
-
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-            <img
-              src="/kinford-logo.png"
-              alt="Kinford School of Guidance"
-              style={{ width: 'clamp(140px, 18vw, 220px)', height: 'auto', display: 'block' }}
-            />
-          </div>
-
-          <div style={{ marginTop: 40, minHeight: 36, transition: 'opacity 0.4s', opacity: fade ? 1 : 0 }}>
-            <p style={{ fontSize: 'clamp(16px,2.5vw,26px)', fontWeight: 300, color: 'rgba(255,255,255,0.7)', letterSpacing: '0.01em' }}>
-              {rotatingLines[lineIndex]}
-            </p>
-          </div>
-
-          <div className="mobile-stack-buttons" style={{ marginTop: 40, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/admissions" style={{ background: '#F5B800', color: '#1E1E1E', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none', letterSpacing: '0.02em' }}>
-              Begin Your Journey →
-            </Link>
-            <Link href="/about" style={{ border: '1.5px solid #ffffff', color: '#ffffff', padding: '14px 32px', borderRadius: 50, fontSize: 14, fontWeight: 400, textDecoration: 'none' }}>
-              Our Story
-            </Link>
-          </div>
-        </div>
-
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 10,
-          background: 'transparent',
-          cursor: 'default',
-        }} />
-      </section>
+      <Hero />
 
       {/* WHY KINFORD */}
       <section style={{ background: '#ffffff', padding: '100px 6vw' }}>
