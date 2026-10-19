@@ -1,7 +1,33 @@
 'use client'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
+const REEL_SHORTCODES = [
+  'DaQQiT5y2XH',
+  'Dac72NrSL1I',
+  'DZuxlKWSXjz',
+  'Dc0nAVby3xT',
+]
+
 export default function Hero() {
+  const [currentReelIndex, setCurrentReelIndex] = useState(0)
+  const [fade, setFade] = useState(true)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // 1. Fade out current embed
+      setFade(false)
+      setTimeout(() => {
+        // 2. Advance to next reel and loop back
+        setCurrentReelIndex((prev) => (prev + 1) % REEL_SHORTCODES.length)
+        // 3. Fade in next embed
+        setFade(true)
+      }, 400)
+    }, 8000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <section
       className="hero-section mobile-hero-padding"
@@ -50,6 +76,12 @@ export default function Hero() {
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
           border: 1px solid rgba(0, 0, 0, 0.06);
           position: relative;
+        }
+
+        .hero-reel-slide {
+          position: absolute;
+          inset: 0;
+          transition: opacity 0.4s ease;
         }
 
         .hero-reel-card iframe {
@@ -146,13 +178,13 @@ export default function Hero() {
       <div className="hero-container">
         {/* Left Side: 55% */}
         <div className="hero-left">
-          {/* Kinford Logo at top left (small, color version) */}
+          {/* Kinford Logo at top left (small, uncropped color version) */}
           <div style={{ marginBottom: 28 }}>
             <img
-              src="/kinford-logo.png"
+              src="/kinford-logo-new.png"
               alt="Kinford School of Guidance"
               style={{
-                width: 160,
+                width: 150,
                 height: 'auto',
                 display: 'block',
               }}
@@ -220,23 +252,38 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* 3 Small Stat Pills in a row */}
+          {/* 3 Updated Stat Pills in a row */}
           <div className="stat-pills-row">
-            <span className="stat-pill">30+ Students</span>
+            <span className="stat-pill">Admissions Open — 2027 Batch</span>
             <span className="stat-pill">Plus One Commerce</span>
-            <span className="stat-pill">Kozhikode, Kerala</span>
+            <span className="stat-pill">Science Stream</span>
           </div>
         </div>
 
         {/* Right Side: 45% */}
         <div className="hero-right">
           <div className="hero-reel-card">
-            <iframe
-              src="https://www.instagram.com/p/DaQQiT5y2XH/embed/"
-              title="Kinford School of Guidance Reel"
-              scrolling="no"
-              allowFullScreen
-            />
+            {REEL_SHORTCODES.map((shortcode, index) => {
+              const isCurrent = currentReelIndex === index
+              return (
+                <div
+                  key={shortcode}
+                  className="hero-reel-slide"
+                  style={{
+                    opacity: isCurrent && fade ? 1 : 0,
+                    pointerEvents: isCurrent ? 'auto' : 'none',
+                    zIndex: isCurrent ? 2 : 1,
+                  }}
+                >
+                  <iframe
+                    src={`https://www.instagram.com/p/${shortcode}/embed/`}
+                    title={`Kinford School Instagram Reel ${index + 1}`}
+                    scrolling="no"
+                    allowFullScreen
+                  />
+                </div>
+              )
+            })}
           </div>
 
           {/* Below the iframe card: Follow us @kinfordschool with Instagram icon */}

@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     'Plus One Commerce Kozhikode'
   ],
   icons: {
-    icon: '/kinford-logo.png',
-    shortcut: '/kinford-logo.png',
-    apple: '/kinford-logo.png',
+    icon: '/kinford-logo-new.png',
+    shortcut: '/kinford-logo-new.png',
+    apple: '/kinford-logo-new.png',
   }
 }
 
