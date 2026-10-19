@@ -151,6 +151,8 @@ export default function Admissions() {
                 >
                   <option value="">Select grade</option>
                   <option value="XI (Plus One Commerce)">XI (Plus One Commerce)</option>
+                  <option value="XI (Plus One Science — Boys)">XI (Plus One Science — Boys)</option>
+                  <option value="XI (Plus One Science — Girls)">XI (Plus One Science — Girls)</option>
                 </select>
               </div>
               <div>

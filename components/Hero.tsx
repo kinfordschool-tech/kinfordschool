@@ -86,7 +86,7 @@ export default function Hero() {
           width: calc(100% + 2px);
           height: calc(100% + 180px);
           border: none;
-          pointer-events: none;
+          pointer-events: auto;
         }
 
         .stat-pills-row {
@@ -255,6 +255,7 @@ export default function Hero() {
               title={`Kinford School Instagram Reel ${currentReelIndex + 1}`}
               scrolling="no"
               allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             />
           </div>
         </div>
