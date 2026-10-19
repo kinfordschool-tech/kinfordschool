@@ -253,7 +253,7 @@ body { font-family: var(--font-geist-sans), sans-serif; overflow-x: hidden; }
   }
 }
 
-iframe {
+.hero-video iframe {
   pointer-events: none;
   border: none !important;
   outline: none !important;
