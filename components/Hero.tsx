@@ -18,7 +18,7 @@ export default function Hero() {
       // 1. Fade out current embed
       setFade(false)
       setTimeout(() => {
-        // 2. Advance to next reel and loop back
+        // 2. Advance to next reel index and loop back
         setCurrentReelIndex((prev) => (prev + 1) % REEL_SHORTCODES.length)
         // 3. Fade in next embed
         setFade(true)
@@ -66,29 +66,26 @@ export default function Hero() {
           align-items: center;
         }
 
-        .hero-reel-card {
+        .reel-container {
+          position: relative;
+          overflow: hidden;
+          border-radius: 20px;
+          height: 600px;
           width: 100%;
           max-width: 420px;
-          height: 600px;
           background: #1E1E1E;
-          border-radius: 20px;
-          overflow: hidden;
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
           border: 1px solid rgba(0, 0, 0, 0.06);
-          position: relative;
-        }
-
-        .hero-reel-slide {
-          position: absolute;
-          inset: 0;
           transition: opacity 0.4s ease;
         }
 
-        .hero-reel-card iframe {
+        .reel-container iframe {
+          position: absolute !important;
+          top: -80px !important;
+          left: 0 !important;
           width: 100% !important;
-          height: 600px !important;
+          height: calc(100% + 80px) !important;
           border: none !important;
-          border-radius: 20px !important;
           display: block !important;
           pointer-events: auto !important;
         }
@@ -150,7 +147,7 @@ export default function Hero() {
             width: 100%;
           }
 
-          .hero-reel-card {
+          .reel-container {
             max-width: 380px;
           }
         }
@@ -165,12 +162,13 @@ export default function Hero() {
             padding: 6px 14px;
           }
 
-          .hero-reel-card {
+          .reel-container {
             height: 520px;
           }
 
-          .hero-reel-card iframe {
-            height: 520px !important;
+          .reel-container iframe {
+            top: -70px !important;
+            height: calc(100% + 70px) !important;
           }
         }
       `}} />
@@ -252,7 +250,7 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* 3 Updated Stat Pills in a row */}
+          {/* 3 Stat Pills in a row */}
           <div className="stat-pills-row">
             <span className="stat-pill">Admissions Open — 2027 Batch</span>
             <span className="stat-pill">Plus One Commerce</span>
@@ -262,28 +260,20 @@ export default function Hero() {
 
         {/* Right Side: 45% */}
         <div className="hero-right">
-          <div className="hero-reel-card">
-            {REEL_SHORTCODES.map((shortcode, index) => {
-              const isCurrent = currentReelIndex === index
-              return (
-                <div
-                  key={shortcode}
-                  className="hero-reel-slide"
-                  style={{
-                    opacity: isCurrent && fade ? 1 : 0,
-                    pointerEvents: isCurrent ? 'auto' : 'none',
-                    zIndex: isCurrent ? 2 : 1,
-                  }}
-                >
-                  <iframe
-                    src={`https://www.instagram.com/p/${shortcode}/embed/`}
-                    title={`Kinford School Instagram Reel ${index + 1}`}
-                    scrolling="no"
-                    allowFullScreen
-                  />
-                </div>
-              )
-            })}
+          {/* Reel Container with top profile bar clipped visually and full remount on index change */}
+          <div
+            className="reel-container"
+            style={{
+              opacity: fade ? 1 : 0,
+            }}
+          >
+            <iframe
+              key={currentReelIndex}
+              src={`https://www.instagram.com/p/${REEL_SHORTCODES[currentReelIndex]}/embed/?hidecaption=true&autoplay=1&muted=1`}
+              title={`Kinford School Instagram Reel ${currentReelIndex + 1}`}
+              scrolling="no"
+              allowFullScreen
+            />
           </div>
 
           {/* Below the iframe card: Follow us @kinfordschool with Instagram icon */}
