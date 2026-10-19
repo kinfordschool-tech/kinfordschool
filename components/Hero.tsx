@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const REEL_SHORTCODES = [
+const reels = [
   'DaQQiT5y2XH',
   'Dac72NrSL1I',
   'DZuxlKWSXjz',
@@ -19,11 +19,11 @@ export default function Hero() {
       setFade(false)
       setTimeout(() => {
         // 2. Advance to next reel index and loop back
-        setCurrentReelIndex((prev) => (prev + 1) % REEL_SHORTCODES.length)
+        setCurrentReelIndex((prev) => (prev + 1) % reels.length)
         // 3. Fade in next embed
         setFade(true)
       }, 400)
-    }, 8000)
+    }, 30000)
 
     return () => clearInterval(timer)
   }, [])
@@ -66,28 +66,27 @@ export default function Hero() {
           align-items: center;
         }
 
-        .reel-container {
+        .reel-wrapper {
           position: relative;
-          overflow: hidden;
-          border-radius: 20px;
-          height: 600px;
           width: 100%;
           max-width: 420px;
+          height: 600px;
+          overflow: hidden;
+          border-radius: 20px;
           background: #1E1E1E;
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
           border: 1px solid rgba(0, 0, 0, 0.06);
           transition: opacity 0.4s ease;
         }
 
-        .reel-container iframe {
-          position: absolute !important;
-          top: -80px !important;
-          left: 0 !important;
-          width: 100% !important;
-          height: calc(100% + 80px) !important;
-          border: none !important;
-          display: block !important;
-          pointer-events: auto !important;
+        .reel-wrapper iframe {
+          position: absolute;
+          top: -80px;
+          left: -1px;
+          width: calc(100% + 2px);
+          height: calc(100% + 180px);
+          border: none;
+          pointer-events: none;
         }
 
         .stat-pills-row {
@@ -112,23 +111,6 @@ export default function Hero() {
           white-space: nowrap;
         }
 
-        .instagram-follow-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 13px;
-          font-weight: 600;
-          color: #666666;
-          text-decoration: none;
-          margin-top: 14px;
-          transition: color 0.2s ease, transform 0.2s ease;
-        }
-
-        .instagram-follow-link:hover {
-          color: #A0163B;
-          transform: translateY(-1px);
-        }
-
         @media (max-width: 992px) {
           .hero-container {
             flex-direction: column;
@@ -147,7 +129,7 @@ export default function Hero() {
             width: 100%;
           }
 
-          .reel-container {
+          .reel-wrapper {
             max-width: 380px;
           }
         }
@@ -162,13 +144,13 @@ export default function Hero() {
             padding: 6px 14px;
           }
 
-          .reel-container {
+          .reel-wrapper {
             height: 520px;
           }
 
-          .reel-container iframe {
-            top: -70px !important;
-            height: calc(100% + 70px) !important;
+          .reel-wrapper iframe {
+            top: -70px;
+            height: calc(100% + 160px);
           }
         }
       `}} />
@@ -260,45 +242,21 @@ export default function Hero() {
 
         {/* Right Side: 45% */}
         <div className="hero-right">
-          {/* Reel Container with top profile bar clipped visually and full remount on index change */}
+          {/* Reel Wrapper clipping top profile bar and bottom UI bars */}
           <div
-            className="reel-container"
+            className="reel-wrapper"
             style={{
               opacity: fade ? 1 : 0,
             }}
           >
             <iframe
               key={currentReelIndex}
-              src={`https://www.instagram.com/p/${REEL_SHORTCODES[currentReelIndex]}/embed/?hidecaption=true&autoplay=1&muted=1`}
+              src={`https://www.instagram.com/p/${reels[currentReelIndex]}/embed/?hidecaption=true&autoplay=1&muted=1`}
               title={`Kinford School Instagram Reel ${currentReelIndex + 1}`}
               scrolling="no"
               allowFullScreen
             />
           </div>
-
-          {/* Below the iframe card: Follow us @kinfordschool with Instagram icon */}
-          <a
-            href="https://www.instagram.com/kinfordschool/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="instagram-follow-link"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-            </svg>
-            Follow us @kinfordschool
-          </a>
         </div>
       </div>
     </section>
